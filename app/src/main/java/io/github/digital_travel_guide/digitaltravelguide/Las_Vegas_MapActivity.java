@@ -38,9 +38,11 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker in Las Vegas and move the camera
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        LatLng LasVegas = new LatLng(36.115134, -115.172934);
+        mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(LasVegas));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
     }
 }
