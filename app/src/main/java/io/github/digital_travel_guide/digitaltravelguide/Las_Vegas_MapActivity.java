@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -78,7 +79,12 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements OnMapRead
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+                //Ranges from 0 to 20, 20 being the most zoomed in.
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+
+                //Add checkpoints listed below each time user location is updated
+                LatLng LasVegas = new LatLng(36.115134, -115.172934);
+                mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
 
             }
 
