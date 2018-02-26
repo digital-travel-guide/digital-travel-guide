@@ -12,7 +12,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_vegasgo"
-        android:label="@string/app_name"
+        android:label="VegasGo"
         android:roundIcon="@mipmap/ic_launcher_vegasgo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -30,7 +30,7 @@
 
         <activity
             android:name=".Las_Vegas_MapActivity"
-            android:label="@string/title_activity_las__vegas__map">
+            android:label="VegasGo">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
