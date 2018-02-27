@@ -22,11 +22,13 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Las_Vegas_MapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
     LocationManager locationManager;
     LocationListener locationListener;
+    boolean lock_user = false;
 
     //This is for checking request for User's GPS location
     @Override
@@ -36,6 +38,7 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements OnMapRead
         if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                mMap.setMyLocationEnabled(true);
             }
         }
     }
@@ -76,15 +79,13 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements OnMapRead
                 //Log.i("Location", location.toString());
                 //Toast.makeText(Las_Vegas_MapActivity.this, location.toString() , Toast.LENGTH_SHORT).show();
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-                //Ranges from 0 to 20, 20 being the most zoomed in.
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                //mMap.clear();
+                if(lock_user == true) {
+                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                    //Ranges from 0 to 20, 20 being the most zoomed in.
+                    //mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                }
 
-                //Add checkpoints listed below each time user location is updated
-                LatLng LasVegas = new LatLng(36.115134, -115.172934);
-                mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
 
             }
 
@@ -108,17 +109,40 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements OnMapRead
             //ask for permission
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
         }else{
-            //we have permission
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            //we have permission, note minTime is in milli-seconds so 1 sec = 1000 milli-secs
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+            mMap.setMyLocationEnabled(true);
         }
 
+        //At this point, we have GPS location of the User
 
         // Add a marker in Las Vegas and move the camera
-        //This will be cleared and erased once the User's GPS location is updated.
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         LatLng LasVegas = new LatLng(36.115134, -115.172934);
         mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LasVegas));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+
+
+        mMap.setMyLocationEnabled(true);
+        mMap.setOnMyLocationButtonClickListener(this);
+        mMap.setOnMyLocationClickListener(this);
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        //Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Zooming to your location", Toast.LENGTH_SHORT).show();
+        LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+       Toast.makeText(this, "Going to your location", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
     }
 }
