@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -48,7 +49,8 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_las__vegas__map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
 
@@ -80,9 +82,18 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 //mMap.clear();
                 if(lock_user == true) {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-                    //Ranges from 0 to 20, 20 being the most zoomed in.
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                    //Ranges from 1 to 20, 20 being the most zoomed in.
+                    //mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+
+                    // Construct a CameraPosition focusing on User location and animate the camera to that position.
+                    CameraPosition cameraPosition = new CameraPosition.Builder()
+                            .target(userLocation)                           // Sets the center of the map to Mountain View
+                            .zoom(18)                                       // Sets the zoom
+                            .bearing(location.getBearing())                 // Sets the orientation of the camera to user's
+                            .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
+                            .build();                                       // Creates a CameraPosition from the builder
+                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 }
 
 
