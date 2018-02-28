@@ -48,8 +48,7 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_las__vegas__map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
 
@@ -81,9 +80,9 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 //mMap.clear();
                 if(lock_user == true) {
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
                     //Ranges from 0 to 20, 20 being the most zoomed in.
-                    //mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
                 }
 
 
@@ -104,13 +103,13 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
 
             }
         };
-
+        //Get permission if necessary
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             //ask for permission
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
         }else{
             //we have permission, note minTime is in milli-seconds so 1 sec = 1000 milli-secs
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, locationListener);
             mMap.setMyLocationEnabled(true);
         }
 
@@ -132,7 +131,15 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
     @Override
     public void onMyLocationClick(@NonNull Location location) {
         //Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "Zooming to your location", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Zooming to your location", Toast.LENGTH_SHORT).show();
+        if(lock_user == false){
+            lock_user = true;
+            Toast.makeText(this, "Locking on to your location", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            lock_user = false;
+            Toast.makeText(this, "Locking your location disabled", Toast.LENGTH_SHORT).show();
+        }
         LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
