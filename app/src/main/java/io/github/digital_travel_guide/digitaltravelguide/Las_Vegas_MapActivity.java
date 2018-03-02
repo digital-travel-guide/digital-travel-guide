@@ -3,6 +3,10 @@ package io.github.digital_travel_guide.digitaltravelguide;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,12 +28,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback {
+        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, SensorEventListener {
 
     private GoogleMap mMap;
-    LocationManager locationManager;
-    LocationListener locationListener;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
     boolean lock_user = false;
+    private float bearing = 0;
+    private SensorManager mSensorManager;
+    private Sensor mRotVectSensor;
 
     //This is for checking request for User's GPS location
     @Override
@@ -38,7 +45,7 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
 
         if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
                 mMap.setMyLocationEnabled(true);
             }
         }
@@ -53,6 +60,13 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if(mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null){
+            mRotVectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        }
+        else{
+            mRotVectSensor = null;
+        }
 
     }
 
@@ -90,8 +104,8 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
                     CameraPosition cameraPosition = new CameraPosition.Builder()
                             .target(userLocation)                           // Sets the center of the map to Mountain View
                             .zoom(18)                                       // Sets the zoom
-                            .bearing(location.getBearing())                 // Sets the orientation of the camera to user's
-                            .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
+                            .bearing(bearing)                               // Sets the orientation of the camera to user's , location.getBearing()
+                            .tilt(45)                                        // Sets the tilt of the camera to 0 degrees
                             .build();                                       // Creates a CameraPosition from the builder
                     mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 }
@@ -114,13 +128,14 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
 
             }
         };
+
         //Get permission if necessary
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             //ask for permission
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
         }else{
             //we have permission, note minTime is in milli-seconds so 1 sec = 1000 milli-secs
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
             mMap.setMyLocationEnabled(true);
         }
 
@@ -140,6 +155,45 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
     }
 
     @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if(lock_user == true) {
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+                //bearing = (float) Math.toDegrees(sensorEvent.values[0]);
+                float[] mRotationMatrix = new float[16];
+                SensorManager.getRotationMatrixFromVector(mRotationMatrix , sensorEvent.values);
+                float[] orientation = new float[3];
+                SensorManager.getOrientation(mRotationMatrix, orientation);
+                bearing = (float) Math.toDegrees(orientation[0]);
+                //CameraPosition oldPos = mMap.getCameraPosition();
+                //CameraPosition pos = CameraPosition.builder(oldPos).bearing(bearing).build();
+                //mMap.moveCamera(CameraUpdateFactory.newCameraPosition(pos));
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mRotVectSensor != null) {
+            mSensorManager.registerListener(this,
+                    mRotVectSensor,
+                    SensorManager.SENSOR_STATUS_ACCURACY_LOW);
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
+    @Override
     public void onMyLocationClick(@NonNull Location location) {
         //Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
         //Toast.makeText(this, "Zooming to your location", Toast.LENGTH_SHORT).show();
@@ -152,8 +206,14 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
             Toast.makeText(this, "Locking your location disabled", Toast.LENGTH_SHORT).show();
         }
         LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+        // Construct a CameraPosition focusing on User location and animate the camera to that position.
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(userLocation)                           // Sets the center of the map to Mountain View
+                .zoom(17)                                       // Sets the zoom
+                .bearing(0)                               // Sets the orientation of the camera to user's , location.getBearing()
+                .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
+                .build();                                       // Creates a CameraPosition from the builder
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @Override
