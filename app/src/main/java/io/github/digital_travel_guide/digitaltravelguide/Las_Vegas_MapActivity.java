@@ -1,8 +1,10 @@
 package io.github.digital_travel_guide.digitaltravelguide;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,11 +13,16 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,7 +34,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap.OnMyLocationButtonClickListener,
+public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, SensorEventListener {
 
     private GoogleMap mMap;
@@ -60,6 +67,9 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        Toolbar mapToolbar = (Toolbar) findViewById(R.id.map_toolbar);
+        setSupportActionBar(mapToolbar);
+
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if(mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null){
             mRotVectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
@@ -75,7 +85,7 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * we just add a marker near Las Vegas, NV, United States.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -83,7 +93,6 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         /** This part is needed to get the User's GPS location */
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -148,14 +157,16 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LasVegas));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 
-
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
+
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+
+
         if(lock_user == true) {
             if (sensorEvent.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
                 //bearing = (float) Math.toDegrees(sensorEvent.values[0]);
@@ -166,7 +177,7 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
                 bearing = (float) Math.toDegrees(orientation[0]);
                 //CameraPosition oldPos = mMap.getCameraPosition();
                 //CameraPosition pos = CameraPosition.builder(oldPos).bearing(bearing).build();
-                //mMap.moveCamera(CameraUpdateFactory.newCameraPosition(pos));
+                //mMap.animateCamera(CameraUpdateFactory.newCameraPosition(pos));
             }
         }
     }
@@ -222,5 +233,21 @@ public class Las_Vegas_MapActivity extends FragmentActivity implements GoogleMap
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
+    }
+
+    public void centerOnVegas(View view){
+        if(lock_user == true){
+            lock_user = false;
+            Toast.makeText(this, "Locking your location disabled", Toast.LENGTH_SHORT).show();
+        }
+        LatLng LasVegas = new LatLng(36.115134, -115.172934);
+        // Construct a CameraPosition focusing on User location and animate the camera to that position.
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(LasVegas)                           // Sets the center of the map to Mountain View
+                .zoom(15)                                       // Sets the zoom //Ranges from 1 to 20, 20 being the most zoomed in.
+                .bearing(0)                               // Sets the orientation of the camera to user's , location.getBearing()
+                .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
+                .build();                                       // Creates a CameraPosition from the builder
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }
