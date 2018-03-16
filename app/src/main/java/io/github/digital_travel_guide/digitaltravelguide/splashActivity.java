@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ProgressBar;
 
 public class splashActivity extends AppCompatActivity {
+    boolean initialStart = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,31 @@ public class splashActivity extends AppCompatActivity {
                 //loadingBar.setProgress(maxTime, true);
                 Intent i = new Intent(getApplicationContext(), Las_Vegas_MapActivity.class);
                 startActivity(i);
+                initialStart = false;
             }
         }.start();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (initialStart == false){
+            //A count down timer that is done in milliseconds. So recall that 1000 milliseconds = 1 second
+            //This countdown is counting down from 1 seconds at intervals of 1 second.
+            //This is needed if user gets back to this screen, so we will push the user back
+            new CountDownTimer(1000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    //Do nothing when counting down
+                }
+
+                public void onFinish() {
+                    //Send user back to map activity
+                    Intent i = new Intent(getApplicationContext(), Las_Vegas_MapActivity.class);
+                    startActivity(i);
+                    initialStart = false;
+                }
+            }.start();
+        }
     }
 }

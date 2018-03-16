@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -21,6 +22,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
@@ -29,6 +33,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
@@ -54,12 +59,20 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
                 mMap.setMyLocationEnabled(true);
             }
         }
+    }
+
+    //Get the menu options bar based on the navigation.xml file under the menu directory
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.navigation, menu);
+        return true;
     }
 
     @Override
@@ -75,10 +88,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         setSupportActionBar(mapToolbar);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        if(mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null){
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
             mRotVectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        }
-        else{
+        } else {
             mRotVectSensor = null;
         }
 
@@ -108,7 +120,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                 //Toast.makeText(Las_Vegas_MapActivity.this, location.toString() , Toast.LENGTH_SHORT).show();
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 //mMap.clear();
-                if(lock_user == true) {
+                if (lock_user == true) {
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
                     //Ranges from 1 to 20, 20 being the most zoomed in.
                     //mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
@@ -143,10 +155,10 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         };
 
         //Get permission if necessary
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //ask for permission
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
-        }else{
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
             //we have permission, note minTime is in milli-seconds so 1 sec = 1000 milli-secs
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
             mMap.setMyLocationEnabled(true);
@@ -190,11 +202,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     public void onSensorChanged(SensorEvent sensorEvent) {
 
 
-        if(lock_user == true) {
+        if (lock_user == true) {
             if (sensorEvent.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
                 //bearing = (float) Math.toDegrees(sensorEvent.values[0]);
                 float[] mRotationMatrix = new float[16];
-                SensorManager.getRotationMatrixFromVector(mRotationMatrix , sensorEvent.values);
+                SensorManager.getRotationMatrixFromVector(mRotationMatrix, sensorEvent.values);
                 float[] orientation = new float[3];
                 SensorManager.getOrientation(mRotationMatrix, orientation);
                 bearing = (float) Math.toDegrees(orientation[0]);
@@ -213,7 +225,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     @Override
     protected void onResume() {
         super.onResume();
-        if(mRotVectSensor != null) {
+        if (mRotVectSensor != null) {
             mSensorManager.registerListener(this,
                     mRotVectSensor,
                     SensorManager.SENSOR_STATUS_ACCURACY_LOW);
@@ -231,11 +243,10 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     public void onMyLocationClick(@NonNull Location location) {
         //Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
         //Toast.makeText(this, "Zooming to your location", Toast.LENGTH_SHORT).show();
-        if(lock_user == false){
+        if (lock_user == false) {
             lock_user = true;
             Toast.makeText(this, "Locking on to your location", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             lock_user = false;
             Toast.makeText(this, "Locking your location disabled", Toast.LENGTH_SHORT).show();
         }
@@ -252,14 +263,14 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
     @Override
     public boolean onMyLocationButtonClick() {
-       Toast.makeText(this, "Going to your location", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Going to your location", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
     }
 
-    public void centerOnVegas(View view){
-        if(lock_user == true){
+    public void centerOnVegas() {
+        if (lock_user == true) {
             lock_user = false;
             Toast.makeText(this, "Locking your location disabled", Toast.LENGTH_SHORT).show();
         }
@@ -273,4 +284,26 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                 .build();                                       // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_home:
+                // User chose the "Home" item
+                centerOnVegas();
+                return true;
+
+            case R.id.navigation_dashboard:
+                // User chose the "Dashboard" action
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 }
