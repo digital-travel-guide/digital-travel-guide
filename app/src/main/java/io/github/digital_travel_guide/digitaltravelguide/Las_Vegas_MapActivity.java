@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleMap.OnMyLocationButtonClickListener,
@@ -167,12 +168,18 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         //Bellagio ground overlay test
         //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
 
-        LatLng bellagio = new LatLng(36.113406-0.001000+0.0001+0.00005, -115.17603+0.0001);   //center: 36.113406, -115.176031
+        LatLng bellagioCenter = new LatLng(36.113406, -115.176031);
+        LatLng bellagioSW = new LatLng(36.110001, -115.179299);
+        LatLng bellagioNE = new LatLng(36.115057, -115.1727991);
+
+        LatLngBounds bellagioBounds = new LatLngBounds(
+                bellagioSW,       // South west corner
+                bellagioNE);      // North east corner
 
         GroundOverlayOptions bellagioMap = new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromResource(R.drawable.groundmap_bellagio))
-                .position(bellagio, 600f-60)
-                .transparency(0.3f);
+                .positionFromBounds(bellagioBounds)
+                .transparency(0.1f);
 
         // Add an overlay to the map, retaining a handle to the GroundOverlay object.
         GroundOverlay imageOverlay = mMap.addGroundOverlay(bellagioMap);
