@@ -3,6 +3,7 @@ package io.github.digital_travel_guide.digitaltravelguide;
 import android.Manifest;
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -26,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
@@ -79,6 +81,15 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_las__vegas__map);
+
+        Button button = (Button) findViewById(R.id.nextActivity);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Las_Vegas_MapActivity.this, PlacePickerActivity.class));
+            }
+        });
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
