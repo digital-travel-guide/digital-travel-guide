@@ -31,6 +31,7 @@ public class splashActivity extends AppCompatActivity {
                 //loadingBar.setProgress(maxTime, true);
                 Intent i = new Intent(getApplicationContext(), Las_Vegas_MapActivity.class);
                 startActivity(i);
+                finish();
                 initialStart = false;
             }
         }.start();

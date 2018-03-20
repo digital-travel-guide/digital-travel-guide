@@ -169,7 +169,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         // Add a marker in Las Vegas and move the camera
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         LatLng LasVegas = new LatLng(36.115134, -115.172934);
-        mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
+        //mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LasVegas));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 
