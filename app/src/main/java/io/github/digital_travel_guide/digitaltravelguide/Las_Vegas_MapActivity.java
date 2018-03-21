@@ -41,10 +41,13 @@ import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.WeakHashMap;
+
 public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, SensorEventListener {
+        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, SensorEventListener, GoogleMap.OnCameraIdleListener {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -53,6 +56,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private float bearing = 0;
     private SensorManager mSensorManager;
     private Sensor mRotVectSensor;
+    private WeakHashMap mMarkers = new WeakHashMap<Marker, String>();
 
     //This is for checking request for User's GPS location
     @Override
@@ -169,13 +173,14 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         // Add a marker in Las Vegas and move the camera
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         LatLng LasVegas = new LatLng(36.115134, -115.172934);
-        //mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
+        //Marker LasVegasMarker = mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LasVegas));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
+        mMap.setOnCameraIdleListener(this);
 
         //Bellagio ground overlay test
         //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
@@ -285,6 +290,26 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
+    public void setMarkers(){
+        LatLng Bellagio = new LatLng(36.115134, -115.172934);
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(Bellagio)
+                .title("Bellagio")
+                .visible(false)
+        );
+        mMarkers.put(marker, "Ballagio");
+    }
+
+    public void nearCamLocation(){
+        LatLng camLocation = mMap.getCameraPosition().target;
+
+    }
+
+    @Override
+    public void onCameraIdle() {
+        Toast.makeText(this, "The camera has stopped moving.", Toast.LENGTH_SHORT).show();
+        //TODO: Using this function, we will find the position of the camera and find anything that is nearby and update map
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
