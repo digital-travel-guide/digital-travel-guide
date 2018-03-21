@@ -42,13 +42,15 @@
         </activity>
         <activity
             android:name=".Las_Vegas_MapActivity"
-            android:label="VegasGo"></activity>
+            android:label="VegasGoPlaceTest"></activity>
         <activity
             android:name=".PlacePickerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+<!--                <category android:name="android.intent.category.LAUNCHER" />
+WE DO NOT WANT THIS LINE BECAUSE IT CREATES A NEW LAUNCHER ICON
+SO THE DEVICE WOULD SHOW TWO ICONS FOR THE APP-->
             </intent-filter>
         </activity>
     </application>
