@@ -307,6 +307,10 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
             case R.id.navigation_dashboard:
                 // User chose the "Dashboard" action
+            {
+                Intent startPlacePicker = new Intent(Las_Vegas_MapActivity.this, PlacePickerActivity.class);
+                startActivity(startPlacePicker);
+            }
                 return true;
 
             default:
