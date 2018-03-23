@@ -56,7 +56,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private float bearing = 0;
     private SensorManager mSensorManager;
     private Sensor mRotVectSensor;
-    private WeakHashMap mMarkers = new WeakHashMap<Marker, String>();
+    private WeakHashMap mMarkers = new WeakHashMap<Marker, locationInfo>();
 
     //This is for checking request for User's GPS location
     @Override
@@ -299,34 +299,30 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     }
 
     public void setMarkers(){
-        Marker marker;
 
         //Ballagio
-        LatLng Bellagio = new LatLng(36.112642, -115.176355);
-        marker = mMap.addMarker(new MarkerOptions()
-                .position(Bellagio)
-                .title("Bellagio")
-                .visible(true)
-        );
-        mMarkers.put(marker, "Ballagio");
+        initMarker(36.112642, -115.176355, "Bellagio");
 
         //Luxor
-        LatLng Luxor = new LatLng(36.095480, -115.175788);
-        marker = mMap.addMarker(new MarkerOptions()
-                .position(Luxor)
-                .title("Luxor")
-                .visible(true)
-        );
-        mMarkers.put(marker, "Luxor");
+        initMarker(36.095480, -115.175788, "Luxor");
 
         //Mandalay Bay
-        LatLng Mandalay = new LatLng(36.091799, -115.176143);
+        initMarker(36.091799, -115.176143, "Mandalay Bay");
+
+    }
+
+    public void initMarker(double lat, double lng, String name){
+        Marker marker;
+        locationInfo loc;
+
+        LatLng building = new LatLng(lat, lng);
         marker = mMap.addMarker(new MarkerOptions()
-                .position(Mandalay)
-                .title("Mandalay Bay")
+                .position(building)
+                .title(name)
                 .visible(true)
         );
-        mMarkers.put(marker, "Mandalay");
+        loc = new locationInfo(name, building, marker);
+        mMarkers.put(marker, loc);
     }
 
     public void showAllMarkers(boolean showM){
