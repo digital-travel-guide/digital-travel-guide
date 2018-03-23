@@ -170,13 +170,16 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         //At this point, we have GPS location of the User
 
-        // Add a marker in Las Vegas and move the camera
+        // Move camera to Las Vegas
+        //This is also the default view when user opens the app
+        //Set map style to be hybrid (satellite) with indoor map on by default
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         LatLng LasVegas = new LatLng(36.115134, -115.172934);
         //Marker LasVegasMarker = mMap.addMarker(new MarkerOptions().position(LasVegas).title("Las Vegas"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LasVegas));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 
+        //These are necessary to enable special phone features like GPS and detecting phone movement
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
@@ -200,6 +203,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         // Add an overlay to the map, retaining a handle to the GroundOverlay object.
         GroundOverlay imageOverlay = mMap.addGroundOverlay(bellagioMap);
+
+
+
+        //Call function that will set initial markers
+        setMarkers();
 
     }
 
@@ -291,13 +299,38 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     }
 
     public void setMarkers(){
-        LatLng Bellagio = new LatLng(36.115134, -115.172934);
-        Marker marker = mMap.addMarker(new MarkerOptions()
+        Marker marker;
+
+        //Ballagio
+        LatLng Bellagio = new LatLng(36.112642, -115.176355);
+        marker = mMap.addMarker(new MarkerOptions()
                 .position(Bellagio)
                 .title("Bellagio")
-                .visible(false)
+                .visible(true)
         );
         mMarkers.put(marker, "Ballagio");
+
+        //Luxor
+        LatLng Luxor = new LatLng(36.095480, -115.175788);
+        marker = mMap.addMarker(new MarkerOptions()
+                .position(Luxor)
+                .title("Luxor")
+                .visible(true)
+        );
+        mMarkers.put(marker, "Luxor");
+
+        //Mandalay Bay
+        LatLng Mandalay = new LatLng(36.091799, -115.176143);
+        marker = mMap.addMarker(new MarkerOptions()
+                .position(Mandalay)
+                .title("Mandalay Bay")
+                .visible(true)
+        );
+        mMarkers.put(marker, "Mandalay");
+    }
+
+    public void showAllMarkers(boolean showM){
+
     }
 
     public void nearCamLocation(){
