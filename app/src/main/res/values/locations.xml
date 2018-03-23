@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!--
+    <locationInfo>
+        <id name="Name of Location">
+            <GPSlat>Value</GPSlat>
+            <GPSlong>Value</GPSlong>
+            <googleID>ID for Google Correlation</googleID>
+        </id>
+
+        <id name="Mandalay Bay">
+            <GPSlat>Value</GPSlat>
+            <GPSlong>Value</GPSlong>
+            <googleID>ChIJYUKC-8_FyIAR7920xSWK9pc</googleID>
+        </id>
+
+        <id name="Tropicana">
+            <GPSlat>Value</GPSlat>
+            <GPSlong>Value</GPSlong>
+            <googleID>ChIJx9KzNzPEyIARcKoYGU1i1g8</googleID>
+        </id>
+    </locationInfo>
+    -->
+</resources>
