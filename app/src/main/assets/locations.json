@@ -1,0 +1,23 @@
+{
+	"locations":
+	[
+		{
+			"id": "00001",
+			"name": "Mandalay Bay",
+			
+			"GPSlat": "36.091799",
+			"GPSlng": "-115.176143",
+			
+			"googleID": "ChIJYUKC-8_FyIAR7920xSWK9pc"
+		},
+		{
+			"id": "00002",
+			"name": "Tropicana",
+			
+			"GPSlat": "",
+			"GPSlng": "",
+			
+			"googleID": "ChIJx9KzNzPEyIARcKoYGU1i1g8"
+		}
+	]
+}
