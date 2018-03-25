@@ -8,7 +8,20 @@ import com.google.android.gms.maps.model.Marker;
  */
 
 public class locationInfo {
+    private int id;
     private String name;
+    private double lat;
+    private double lng;
+    private String googleID;
+
+    public locationInfo(int id, String name, double lat, double lng, String googleID) {
+        this.id = id;
+        this.name = name;
+        this.lat = lat;
+        this.lng = lng;
+        this.googleID = googleID;
+    }
+    /*
     private LatLng position;
     private Marker marker;
 
@@ -29,4 +42,5 @@ public class locationInfo {
     public Marker getMarker() {
         return marker;
     }
+    */
 }

@@ -4,14 +4,6 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ProgressBar;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class splashActivity extends AppCompatActivity {
     boolean initialStart = true;
@@ -26,7 +18,7 @@ public class splashActivity extends AppCompatActivity {
         //loadingBar.setMax(maxTime);
         //loadingBar.setProgress(0, true);
 
-        loadLocationArray();
+        loadLocationList();
 
         //A count down timer that is done in milliseconds. So recall that 1000 milliseconds = 1 second
         //This countdown is counting down from 3 seconds at intervals of 1 second.
@@ -69,8 +61,13 @@ public class splashActivity extends AppCompatActivity {
         }
     }
 
-    private void loadLocationArray() {
-        String jsonString = loadLocationJSON();
+    private void loadLocationList() {
+        Globals g = (Globals)getApplication();
+        g.loadJSON();
+
+        //String jsonString = loadLocationJSON();
+
+
 
         //load location info from json file
         //store list/array as a global
