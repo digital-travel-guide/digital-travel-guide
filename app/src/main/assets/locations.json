@@ -13,5 +13,19 @@
 		"name": "Tropicana",
 		
 		"googleID": "ChIJx9KzNzPEyIARcKoYGU1i1g8"
+	},
+	{
+		"id": "00003",
+		"name": "Luxor",
+		
+		"lat": "36.095480",
+		"lng": "-115.175788"
+	},
+	{
+		"id": "000017",
+		"name": "Bellagio",
+		
+		"lat": "36.112642",
+		"lng": "-115.176355"
 	}
 ]

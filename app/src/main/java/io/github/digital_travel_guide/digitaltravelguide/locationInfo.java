@@ -21,6 +21,31 @@ public class locationInfo {
         this.lng = lng;
         this.googleID = googleID;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public String getGoogleID() {
+        return googleID;
+    }
+
+    public LatLng getLatLng() {
+        return new LatLng(lat, lng);
+    }
+
     /*
     private LatLng position;
     private Marker marker;

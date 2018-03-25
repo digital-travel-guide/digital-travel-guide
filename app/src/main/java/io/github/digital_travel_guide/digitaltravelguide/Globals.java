@@ -16,38 +16,16 @@ import java.util.ArrayList;
  */
 
 public class Globals extends Application {
-    private ArrayList<locationInfo> locationInfoArr = new ArrayList<locationInfo>();
+    private locationHandler mainHandler;
 
-    public void loadJSON() {
-        locationInfoArr.add(new locationInfo (00001, "Mandalay Bay", 36.091799, -115.176143, "ChIJYUKC-8_FyIAR7920xSWK9pc"));
-        locationInfoArr.add(new locationInfo (00002, "Tropicana", 36.091799, -115.176143, "ChIJx9KzNzPEyIARcKoYGU1i1g8"));
-
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String jsonOutput = gson.toJson(locationInfoArr);
-        Log.d("gsonTest",jsonOutput);
-
-        String jsonAsset = readJSONFromAsset();
-        Log.d("gsonTest",jsonAsset);
-        locationInfoArr = gson.fromJson(jsonAsset,new TypeToken<ArrayList<locationInfo>>(){}.getType());
-
-        jsonOutput = gson.toJson(locationInfoArr);
-        Log.d("gsonTest",jsonOutput);
+    /*
+    public Globals() {
+        initLocationInfo();
     }
+    */
 
-    public String readJSONFromAsset() {
-        String json = null;
-        try {
-            InputStream is = getAssets().open("locations.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
+    public void initLocationInfo() {
+        mainHandler = new locationHandler(getBaseContext());
+        mainHandler.loadLocationInfo();
     }
 }
