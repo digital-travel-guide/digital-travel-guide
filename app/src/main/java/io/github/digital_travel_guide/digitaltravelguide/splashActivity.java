@@ -4,14 +4,6 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ProgressBar;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class splashActivity extends AppCompatActivity {
     boolean initialStart = true;
@@ -26,7 +18,8 @@ public class splashActivity extends AppCompatActivity {
         //loadingBar.setMax(maxTime);
         //loadingBar.setProgress(0, true);
 
-        loadLocationArray();
+        //initialize location info array (might want to do this asynchronously)
+        ((Globals)getApplication()).initLocationInfo();
 
         //A count down timer that is done in milliseconds. So recall that 1000 milliseconds = 1 second
         //This countdown is counting down from 3 seconds at intervals of 1 second.
@@ -67,58 +60,5 @@ public class splashActivity extends AppCompatActivity {
                 }
             }.start();
         }
-    }
-
-    private void loadLocationArray() {
-        String jsonString = loadLocationJSON();
-
-        //load location info from json file
-        //store list/array as a global
-        /*
-        try {
-            JSONObject obj = new JSONObject(jsonString);
-            JSONArray m_jArry = obj.getJSONArray("formules");
-            ArrayList<HashMap<String, String>> formList = new ArrayList<HashMap<String, String>>();
-            HashMap<String, String> m_li;
-
-            for (int i = 0; i < m_jArry.length(); i++) {
-                JSONObject jo_inside = m_jArry.getJSONObject(i);
-                Log.d("Details-->", jo_inside.getString("formule"));
-                String formula_value = jo_inside.getString("formule");
-                String url_value = jo_inside.getString("url");
-
-                //Add your values in your `ArrayList` as below:
-                m_li = new HashMap<String, String>();
-                m_li.put("formule", formula_value);
-                m_li.put("url", url_value);
-
-                formList.add(m_li);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        */
-    }
-
-    private String loadLocationJSON() {
-        return loadJSONFromAsset("locations.json");
-    }
-
-    public String loadJSONFromAsset(String fileStr) {
-        String json = null;
-        /*
-        try {
-            InputStream is = getActivity().getAssets().open(fileStr);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        */
-        return json;
     }
 }

@@ -1,23 +1,31 @@
-{
-	"locations":
-	[
-		{
-			"id": "00001",
-			"name": "Mandalay Bay",
-			
-			"GPSlat": "36.091799",
-			"GPSlng": "-115.176143",
-			
-			"googleID": "ChIJYUKC-8_FyIAR7920xSWK9pc"
-		},
-		{
-			"id": "00002",
-			"name": "Tropicana",
-			
-			"GPSlat": "",
-			"GPSlng": "",
-			
-			"googleID": "ChIJx9KzNzPEyIARcKoYGU1i1g8"
-		}
-	]
-}
+[
+	{
+		"id": "00001",
+		"name": "Mandalay Bay",
+		
+		"lat": "36.091799",
+		"lng": "-115.176143",
+		
+		"googleID": "ChIJYUKC-8_FyIAR7920xSWK9pc"
+	},
+	{
+		"id": "00002",
+		"name": "Tropicana",
+		
+		"googleID": "ChIJx9KzNzPEyIARcKoYGU1i1g8"
+	},
+	{
+		"id": "00003",
+		"name": "Luxor",
+		
+		"lat": "36.095480",
+		"lng": "-115.175788"
+	},
+	{
+		"id": "000017",
+		"name": "Bellagio",
+		
+		"lat": "36.112642",
+		"lng": "-115.176355"
+	}
+]

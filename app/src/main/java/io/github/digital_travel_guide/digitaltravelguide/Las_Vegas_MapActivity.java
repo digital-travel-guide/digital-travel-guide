@@ -299,30 +299,24 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     }
 
     public void setMarkers(){
-
-        //Ballagio
-        initMarker(36.112642, -115.176355, "Bellagio");
-
-        //Luxor
-        initMarker(36.095480, -115.175788, "Luxor");
-
-        //Mandalay Bay
-        initMarker(36.091799, -115.176143, "Mandalay Bay");
-
+        putMarker("Bellagio");
+        putMarker("Luxor");
+        putMarker("Mandalay Bay");
     }
 
-    public void initMarker(double lat, double lng, String name){
-        Marker marker;
-        locationInfo loc;
+    private void putMarker(String name) {
+        //get location info from global list
+        locationInfo curLoc = locationHandler.getLocation(name);
 
-        LatLng building = new LatLng(lat, lng);
-        marker = mMap.addMarker(new MarkerOptions()
-                .position(building)
-                .title(name)
-                .visible(true)
-        );
-        loc = new locationInfo(name, building, marker);
-        mMarkers.put(marker, loc);
+        Marker marker;
+
+        if (curLoc != null) {
+            marker = mMap.addMarker(new MarkerOptions()
+                    .position(curLoc.getLatLng())
+                    .title(curLoc.getName())
+                    .visible(true)
+            );
+        }
     }
 
     public void showAllMarkers(boolean showM){
