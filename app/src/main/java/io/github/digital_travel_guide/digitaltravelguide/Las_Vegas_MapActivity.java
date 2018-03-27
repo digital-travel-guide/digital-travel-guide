@@ -311,11 +311,24 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         Marker marker;
 
         if (curLoc != null) {
-            marker = mMap.addMarker(new MarkerOptions()
-                    .position(curLoc.getLatLng())
-                    .title(curLoc.getName())
-                    .visible(true)
-            );
+            if (curLoc.getLatLng() != null) {
+                marker = mMap.addMarker(new MarkerOptions()
+                        .position(curLoc.getLatLng())
+                        .title(curLoc.getName())
+                        .visible(true)
+                );
+            }
+        }
+    }
+
+    private LatLng getParking(String name) {
+        //returns parking LatLng of requested location
+        locationInfo curLoc = locationHandler.getLocation(name);
+
+        if (curLoc != null) {
+            return curLoc.getParkingLatLng();
+        } else {
+            return null;
         }
     }
 

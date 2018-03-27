@@ -12,6 +12,8 @@ public class locationInfo {
     private String name;
     private double lat;
     private double lng;
+    private double parkingLat;
+    private double parkingLng;
     private String googleID;
 
     public locationInfo(int id, String name, double lat, double lng, String googleID) {
@@ -43,7 +45,19 @@ public class locationInfo {
     }
 
     public LatLng getLatLng() {
-        return new LatLng(lat, lng);
+        if (lat != 0 || lng != 0) {
+            return new LatLng(lat, lng);
+        } else {
+            return null;
+        }
+    }
+
+    public LatLng getParkingLatLng() {
+        if (parkingLat != 0 || parkingLng != 0) {
+            return new LatLng(parkingLat, parkingLng);
+        } else {
+            return null;
+        }
     }
 
     /*

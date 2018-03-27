@@ -32,6 +32,7 @@ public class locationHandler {
         Log.d("gson",jsonAsset);
         locationInfoArr = gson.fromJson(jsonAsset,new TypeToken<ArrayList<locationInfo>>(){}.getType());
 
+        //test json output
         String jsonOutput = gson.toJson(locationInfoArr);
         Log.d("gson",jsonOutput);
     }

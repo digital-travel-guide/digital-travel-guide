@@ -5,8 +5,11 @@
 		
 		"lat": "36.091799",
 		"lng": "-115.176143",
-		
-		"googleID": "ChIJYUKC-8_FyIAR7920xSWK9pc"
+
+        "parkingLat": "36.091982",
+        "parkingLng": "-115.178615",
+
+        "googleID": "ChIJYUKC-8_FyIAR7920xSWK9pc"
 	},
 	{
 		"id": "00002",
