@@ -16,11 +16,13 @@ public class locationInfo {
     private double parkingLng;
     private String googleID;
 
-    public locationInfo(int id, String name, double lat, double lng, String googleID) {
+    public locationInfo(int id, String name, double lat, double lng, double parkingLat, double parkingLng, String googleID) {
         this.id = id;
         this.name = name;
         this.lat = lat;
         this.lng = lng;
+        this.parkingLat = parkingLat;
+        this.parkingLng = parkingLng;
         this.googleID = googleID;
     }
 

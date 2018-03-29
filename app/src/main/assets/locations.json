@@ -17,6 +17,9 @@
 
         "lat": "36.099635",
         "lng": "-115.171358",
+
+        "parkingLat": "0",
+        "parkingLng": "0",
 		
 		"googleID": "ChIJx9KzNzPEyIARcKoYGU1i1g8"
 	},
@@ -27,6 +30,9 @@
 		"lat": "36.095480",
 		"lng": "-115.175788",
 
+        "parkingLat": "0",
+        "parkingLng": "0",
+
         "googleID": "ChIJR7RcPs7FyIAROAHQry50Wgs"
 	},
     {
@@ -35,6 +41,9 @@
 
       "lat": "36.102576",
       "lng": "-115.170253",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJJQ6Ck8zFyIARfxB2vQVF2Z0"
     },
@@ -45,6 +54,9 @@
       "lat": "36.098982",
       "lng": "-115.175472",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJzZtJhM3FyIAR6eHpF4xTR68"
     },
     {
@@ -53,6 +65,9 @@
 
       "lat": "36.109970",
       "lng": "-115.170065",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJqzfRYTbEyIARnAVadHZlVHw"
     },
@@ -63,6 +78,9 @@
       "lat": "36.102371",
       "lng": "-115.174556",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJZ4lcwszFyIAR7nw_Ba2KrO0"
     },
     {
@@ -71,6 +89,9 @@
 
       "lat": "36.112541",
       "lng": "-115.170671",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJAQAAAGzDyIARAVwe_ga0REU"
     },
@@ -81,6 +102,9 @@
       "lat": "36.104584",
       "lng": "-115.174465",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJcXcTYjLEyIARgZt9AsyiywU"
     },
     {
@@ -89,6 +113,9 @@
 
       "lat": "36.114061",
       "lng": "-115.170627",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJJ9M69znEyIAR4JClP57b-W0"
     },
@@ -99,6 +126,9 @@
       "lat": "36.107458",
       "lng": "-115.176716",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJhWQVHS7EyIARbwWzRC-I8y4"
     },
     {
@@ -107,6 +137,9 @@
 
       "lat": "36.116441",
       "lng": "-115.170792",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJVdePyjvEyIARderixECdW2Q"
     },
@@ -117,6 +150,9 @@
       "lat": "36.109755",
       "lng": "-115.173877",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJT__BBTHEyIARSHye841eD20"
     },
     {
@@ -125,6 +161,9 @@
 
     "lat": "36.118154",
     "lng": "-115.172442",
+
+    "parkingLat": "0",
+    "parkingLng": "0",
 
     "googleID": "ChIJuVjYCjzEyIARReNTnhGbd3o"
     },
@@ -135,6 +174,9 @@
       "lat": "36.109384",
       "lng": "-115.178132",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJmxHXmTXEyIAREUVb-tQpbC0"
     },
     {
@@ -143,6 +185,9 @@
 
       "lat": "36.119464",
       "lng": "-115.171639",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJWxuQMDzEyIARsw492ihhHOE"
     },
@@ -153,6 +198,9 @@
       "lat": "36.112626",
       "lng": "-115.176705",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJvUdRyzDEyIARhA3R2cXH8oI"
     },
     {
@@ -161,6 +209,9 @@
 
       "lat": "36.121174",
       "lng": "-115.169653",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJiwV3rBXEyIARRdN3c345tKE"
     },
@@ -171,6 +222,9 @@
       "lat": "36.116169",
       "lng": "-115.174499",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJtcCViTvEyIARZYfbt81WrOI"
     },
     {
@@ -179,6 +233,9 @@
 
       "lat": "36.123967",
       "lng": "-115.167916",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJ9TdsBj7EyIARVQQd4t-9bkU"
     },
@@ -189,6 +246,9 @@
       "lat": "36.121196",
       "lng": "-115.174074",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJdyyk8BXEyIARY72Zdyqd_m0"
     },
     {
@@ -197,6 +257,9 @@
 
       "lat": "36.126490",
       "lng": "-115.165739",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJlYYq3iLEyIAR7W-7y3M7wbE"
     },
@@ -207,6 +270,9 @@
       "lat": "36.124745",
       "lng": "-115.172081",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJswuaqjrEyIARE0cTvGmUiwk"
     },
     {
@@ -216,6 +282,9 @@
       "lat": "36.129075",
       "lng": "-115.165290",
 
+      "parkingLat": "0",
+      "parkingLng": "0",
+
       "googleID": "ChIJS0B4ZMzCyIARxg2SVf4dIZk"
     },
     {
@@ -224,6 +293,9 @@
 
       "lat": "36.137772",
       "lng": "-115.165370",
+
+      "parkingLat": "0",
+      "parkingLng": "0",
 
       "googleID": "ChIJmSto3AzEyIAR9CR5eHxI4BM"
     }
