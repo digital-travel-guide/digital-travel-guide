@@ -195,14 +195,20 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         locationInfo curLoc = (locationInfo) mMarkers.get(marker);
-                        if (current_parking != null){
-                            current_parking.remove();
-                            current_parking = null;
+                        //Check to see if this is a parking marker, if yes, do nothing, else continue
+                        if(marker.getTitle().endsWith("Parking")){
+                            //Do nothing, this is a parking marker
                         }
-                        //The marker has been clicked, and now we have the building info for that marker
-                        //Toast.makeText(getApplicationContext(), "Marker has been clicked.", Toast.LENGTH_SHORT).show();
+                        else {
+                            if (current_parking != null) {
+                                current_parking.remove();
+                                current_parking = null;
+                            }
+                            //The marker has been clicked, and now we have the building info for that marker
+                            //Toast.makeText(getApplicationContext(), "Marker has been clicked.", Toast.LENGTH_SHORT).show();
 
 
+                        }
                         // Return false to indicate that we have not consumed the event and that we wish
                         // for the default behavior to occur (which is for the camera to move such that the
                         // marker is centered and for the marker's info window to open, if it has one).
@@ -224,6 +230,14 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                                     .visible(true)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                             );
+                            // Construct a CameraPosition focusing on User location and animate the camera to that position.
+                            CameraPosition cameraPosition = new CameraPosition.Builder()
+                                    .target(current_parking.getPosition())           // Sets the center of the map to Mountain View
+                                    .zoom(17)                                       // Sets the zoom
+                                    .bearing(0)                                     // Sets the orientation of the camera to user's , location.getBearing()
+                                    .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
+                                    .build();                                       // Creates a CameraPosition from the builder
+                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                         }
                         else{
                             Toast.makeText(getApplicationContext(), "No parking at the moment.", Toast.LENGTH_SHORT).show();
