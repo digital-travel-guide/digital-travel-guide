@@ -247,6 +247,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                 }
         );
 
+        //Toggle indoor mapping; True to show, False for not
+        mMap.setIndoorEnabled(false);
+
         //Bellagio ground overlay test
         //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
 
