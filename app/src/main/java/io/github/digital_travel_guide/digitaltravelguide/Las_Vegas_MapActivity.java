@@ -59,6 +59,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private Sensor mRotVectSensor;
     private HashMap mMarkers = new HashMap<Marker, locationInfo>();
     private Marker current_parking = null;
+    private GroundOverlay imageOverlay = null;
 
 
     //This is for checking request for User's GPS location
@@ -260,10 +261,13 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         GroundOverlayOptions bellagioMap = new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromResource(R.drawable.groundmap_bellagio))
                 .positionFromBounds(bellagioBounds)
-                .transparency(0.1f);
+                .transparency(0.1f)
+                .visible(false);
 
         // Add an overlay to the map, retaining a handle to the GroundOverlay object.
-        GroundOverlay imageOverlay = mMap.addGroundOverlay(bellagioMap);
+        imageOverlay = mMap.addGroundOverlay(bellagioMap);
+        imageOverlay.setVisible(false);
+
 
 
 
@@ -425,6 +429,22 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     public void nearCamLocation(){
         LatLng camLocation = mMap.getCameraPosition().target;
 
+        //Get Bellagio bounds from the Ground Overlay
+        LatLngBounds bellagioBounds = imageOverlay.getBounds();
+        LatLng bellagioSW = bellagioBounds.southwest;
+        LatLng bellagioNE = bellagioBounds.northeast;
+
+        if(camLocation.latitude <= bellagioNE.latitude && camLocation.latitude >= bellagioSW.latitude) {
+            if(camLocation.longitude <= bellagioNE.longitude && camLocation.longitude >= bellagioSW.longitude) {
+                imageOverlay.setVisible(true);
+            }
+            else{
+                imageOverlay.setVisible(false);
+            }
+        }else{
+            imageOverlay.setVisible(false);
+        }
+
     }
 
 
@@ -432,6 +452,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     public void onCameraIdle() {
         //Toast.makeText(this, "The camera has stopped moving.", Toast.LENGTH_SHORT).show();
         //TODO: Using this function, we will find the position of the camera and find anything that is nearby and update map
+        nearCamLocation();
     }
 
     @Override
