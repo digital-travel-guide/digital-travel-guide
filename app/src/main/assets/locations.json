@@ -303,14 +303,14 @@
 
 
   {
-    "id": "000000",
-    "name": "Infomration Button",
+    "id": "00000",
+    "name": "Information Button",
 
-    "lat": "36",
-    "lng": "-115",
+    "lat": "36.116169",
+    "lng": "-115.161",
 
-    "parkingLat": "0",
-    "parkingLng": "0",
+    "parkingLat": "0.1",
+    "parkingLng": "0.1",
 
     "googleID": "unknown"
   }

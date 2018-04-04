@@ -1,5 +1,7 @@
 package io.github.digital_travel_guide.digitaltravelguide;
 
+import android.content.Intent;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
@@ -57,6 +59,12 @@ public class locationInfo {
     public LatLng getParkingLatLng() {
         if (parkingLat != 0 || parkingLng != 0) {
             return new LatLng(parkingLat, parkingLng);
+        } else if (parkingLat == 0.1 || parkingLng == 0.1) {
+            /*
+            UPDATE HERE
+            TO OPEN THE INFORMATION ACTIVTTY
+            */
+            return null;
         } else {
             return null;
         }
