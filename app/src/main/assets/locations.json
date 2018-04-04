@@ -298,5 +298,20 @@
       "parkingLng": "-115.166092",
 
       "googleID": "ChIJmSto3AzEyIAR9CR5eHxI4BM"
-    }
+    },
+
+
+
+  {
+    "id": "000000",
+    "name": "Infomration Button",
+
+    "lat": "36",
+    "lng": "-115",
+
+    "parkingLat": "0",
+    "parkingLng": "0",
+
+    "googleID": "unknown"
+  }
 ]

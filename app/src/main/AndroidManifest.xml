@@ -32,7 +32,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".splashActivity"
+        <activity
+            android:name=".splashActivity"
             android:label="VegasGo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,12 +41,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Las_Vegas_MapActivity"
-            android:label="VegasGo">
-        </activity>
-
+            android:label="VegasGo"></activity>
+        <activity android:name=".informationActivity"></activity>
     </application>
 
 </manifest>
