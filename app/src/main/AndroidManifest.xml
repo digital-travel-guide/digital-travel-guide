@@ -32,6 +32,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <meta-data android:name="android.app.default_searchable"
+            android:value=".SearchableActivity" />
+
         <activity
             android:name=".splashActivity"
             android:label="VegasGo">
@@ -43,8 +46,20 @@
         </activity>
         <activity
             android:name=".Las_Vegas_MapActivity"
-            android:label="VegasGo"></activity>
-        <activity android:name=".informationActivity"></activity>
+            android:label="VegasGo" />
+        <activity android:name=".informationActivity" />
+        <activity
+            android:name=".SearchableActivity"
+            android:label="@string/title_activity_searchable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
     </application>
 
 </manifest>
