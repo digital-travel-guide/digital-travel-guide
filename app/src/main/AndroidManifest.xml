@@ -32,9 +32,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <meta-data android:name="android.app.default_searchable"
-            android:value=".SearchableActivity" />
-
         <activity
             android:name=".splashActivity"
             android:label="VegasGo">
@@ -46,7 +43,10 @@
         </activity>
         <activity
             android:name=".Las_Vegas_MapActivity"
-            android:label="VegasGo" />
+            android:label="VegasGo" >
+            <meta-data android:name="android.app.default_searchable"
+                android:value=".SearchableActivity" />
+        </activity>
         <activity android:name=".informationActivity" />
         <activity
             android:name=".SearchableActivity"
