@@ -10,6 +10,6 @@
     <string name="lasvegas">Las\nVegas</string>
     <string name="info">Info</string>
     <string name="vegasgosign">vegasGoSign</string>
-    <string name="search_hint">Search location</string>
+    <string name="search_hint">Search for a location</string>
     <string name="title_activity_searchable">SearchableActivity</string>
 </resources>
