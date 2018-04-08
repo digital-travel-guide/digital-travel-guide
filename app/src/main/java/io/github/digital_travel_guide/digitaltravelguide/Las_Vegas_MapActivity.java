@@ -1,42 +1,50 @@
 package io.github.digital_travel_guide.digitaltravelguide;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SpinnerAdapter;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -44,11 +52,15 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.WeakHashMap;
+import java.util.List;
+
+import io.github.digital_travel_guide.digitaltravelguide.models.PlaceInfo;
 
 public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, SensorEventListener, GoogleMap.OnCameraIdleListener {
+        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, SensorEventListener, GoogleMap.OnCameraIdleListener, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -60,6 +72,19 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private HashMap mMarkers = new HashMap<Marker, locationInfo>();
     private Marker current_parking = null;
     private GroundOverlay imageOverlay = null;
+
+    private AutoCompleteTextView mSearchText;
+    private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
+    private GoogleApiClient mGoogleApiClient;
+
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
+            new LatLng(-40, -168), new LatLng(71, 136));
+
+    private PlaceInfo mPlace;
+
+    private Marker mMarker;
+
+    private ImageView mInfo;
 
 
     //This is for checking request for User's GPS location
@@ -75,6 +100,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         }
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
     //Get the menu options bar based on the navigation.xml file under the menu directory
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,10 +117,14 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_las__vegas__map);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mSearchText = (AutoCompleteTextView) findViewById(R.id.input_search);
+        mInfo = (ImageView) findViewById(R.id.place_info);
 
         Toolbar mapToolbar = (Toolbar) findViewById(R.id.map_toolbar);
         setSupportActionBar(mapToolbar);
@@ -102,8 +136,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             mRotVectSensor = null;
         }
 
-    }
+        init();
 
+    }
 
     /**
      * Manipulates the map once available.
@@ -114,6 +149,74 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+    private void init() {
+
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this,this)
+                .build();
+
+        mSearchText.setOnItemClickListener(mAutocompleteClickListener);
+
+        mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, null);
+
+        mSearchText.setAdapter(mPlaceAutocompleteAdapter);
+
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+
+                    //execute our method for searching
+                    geoLocate();
+                }
+                return false;
+            }
+        });
+
+        mInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    if(mMarker.isInfoWindowShown()) {
+                        mMarker.hideInfoWindow();
+                    }else{
+                        mPlace.toString();
+                        mMarker.showInfoWindow();
+                    }
+                } catch(NullPointerException e) {
+                    e.getMessage();
+                }
+            }
+        });
+
+        hideSoftKeyboard();
+
+    }
+
+    private void geoLocate(){
+        String searchString = mSearchText.getText().toString();
+
+        Geocoder geocoder = new Geocoder(Las_Vegas_MapActivity.this);
+        List<Address> list = new ArrayList<>();
+        try{
+            list = geocoder.getFromLocationName(searchString, 1);
+        }catch(IOException e) {
+            e.getMessage();
+        }
+
+        if(list.size() > 0) {
+            Address address = list.get(0);
+            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), 15f,address.getAddressLine(0));
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -479,5 +582,98 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         }
     }
+
+    private void moveCamera(LatLng latlng, float zoom, PlaceInfo placeInfo) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,zoom));
+
+        if(placeInfo != null) {
+            try {
+                String snippet = "Address: " + placeInfo.getAddress() + "\n" +
+                        "Phone Number: " + placeInfo.getPhoneNumber() + "\n" +
+                        "Website: " + placeInfo.getWesiteUri() + "\n" +
+                        "Price Rating: " + placeInfo.getRating() + "\n";
+
+                MarkerOptions options = new MarkerOptions()
+                        .position(latlng)
+                        .title(placeInfo.getName())
+                        .snippet(snippet);
+
+                mMarker = mMap.addMarker(options);
+
+            } catch (NullPointerException e) {
+                e.getMessage();
+            }
+        } else {
+            mMap.addMarker(new MarkerOptions().position(latlng));
+        }
+
+        hideSoftKeyboard();
+    }
+
+    private void moveCamera(LatLng latlng, float zoom, String title) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,zoom));
+
+        MarkerOptions options = new MarkerOptions()
+                .position(latlng)
+                .title(title);
+        mMap.addMarker(options);
+
+        hideSoftKeyboard();
+    }
+
+    private void hideSoftKeyboard() {
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    /*
+    **************************** Google Places API Autocomplete Suggestions
+     */
+
+    private AdapterView.OnItemClickListener mAutocompleteClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            hideSoftKeyboard();
+
+            final AutocompletePrediction item = mPlaceAutocompleteAdapter.getItem(i);
+            final String placeId = item.getPlaceId();
+
+            PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
+                    .getPlaceById(mGoogleApiClient, placeId);
+            placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+        }
+    };
+
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(@NonNull PlaceBuffer places) {
+            if(!places.getStatus().isSuccess()) {
+                places.getStatus().toString();
+                places.release();
+                return;
+            }
+            final Place place = places.get(0);
+
+            try{
+                mPlace = new PlaceInfo();
+                mPlace.setName(place.getName().toString());
+                mPlace.setAddress(place.getAddress().toString());
+                //mPlace.setAttriutions(place.getAttributions().toString());
+                mPlace.setId(place.getId());
+                mPlace.setLatlng(place.getLatLng());
+                mPlace.setRating(place.getRating());
+                mPlace.setPhoneNumber(place.getPhoneNumber().toString());
+                mPlace.setWesiteUri(place.getWebsiteUri());
+
+                mPlace.toString();
+            }catch (NullPointerException e) {
+                e.getMessage();
+            }
+
+            moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
+
+            places.release();
+
+        }
+    };
 
 }

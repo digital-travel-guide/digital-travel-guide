@@ -29,4 +29,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
 
     compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.google.android.gms:play-services-places:11.8.0'
 }
