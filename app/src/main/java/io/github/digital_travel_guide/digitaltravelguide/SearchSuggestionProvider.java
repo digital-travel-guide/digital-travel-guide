@@ -5,40 +5,57 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
-/**
- * Created by Joel on 4/7/2018.
- */
-
 public class SearchSuggestionProvider extends ContentProvider {
-    @Override
-    public boolean onCreate() {
-       return false;
-    }
-
-    @Override
-    public Uri insert(Uri uri, ContentValues values) {
-        return null;
-    }
-
-    @Override
-    public Cursor query(Uri uri, String[] projection,
-                        String selection,String[] selectionArgs, String sortOrder) {
-        return null;
+    public SearchSuggestionProvider() {
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
-    }
-
-    @Override
-    public int update(Uri uri, ContentValues values,
-                      String selection, String[] selectionArgs) {
-        return 0;
+        // Implement this to handle requests to delete one or more rows.
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public String getType(Uri uri) {
-        return null;
+        // TODO: Implement this to handle requests for the MIME type of the data
+        // at the given URI.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+        // TODO: Implement this to handle requests to insert a new row.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public boolean onCreate() {
+        // TODO: Implement this to initialize your content provider on startup.
+        return false;
+    }
+
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
+        // TODO: Implement this to handle query requests from clients.
+        throw new UnsupportedOperationException("Not yet implemented");
+
+        /*
+        String query = uri.getLastPathSegment();
+        if (SearchManager.SUGGEST_URI_PATH_QUERY.equals(query)) {
+            // nothing entered, return default cursor
+
+        } else {
+            // contains user search, return cursor with appropriate data
+
+        }
+        */
+    }
+
+    @Override
+    public int update(Uri uri, ContentValues values, String selection,
+                      String[] selectionArgs) {
+        // TODO: Implement this to handle requests to update one or more rows.
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
