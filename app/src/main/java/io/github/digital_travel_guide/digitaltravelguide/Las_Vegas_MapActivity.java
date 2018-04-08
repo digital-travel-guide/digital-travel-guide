@@ -94,6 +94,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         Toolbar mapToolbar = (Toolbar) findViewById(R.id.map_toolbar);
         setSupportActionBar(mapToolbar);
+        //mapToolbar.setTitle(mapToolbar.getTitle());
+        //mapToolbar.setTitleTextColor(0x42ffffff);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
@@ -469,7 +471,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                 return true;
 
             case R.id.navigation_dashboard:
-                // User chose the "Dashboard" action
+                // User chose the "searching" action
+                return true;
+
+            case R.id.navigation_notifications:
+                // User chose the "parking" action
                 return true;
 
             default:
