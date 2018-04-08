@@ -102,14 +102,14 @@ public class PlaceInfo {
     @Override
     public String toString() {
         return "PlaceInfo{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", id='" + id + '\'' +
+                "name='" + name + '\n' +
+                ", address='" + address + '\n' +
+                ", phoneNumber='" + phoneNumber + '\n' +
+                ", id='" + id + '\n' +
                 ", wesiteUri=" + wesiteUri +
                 ", latlng=" + latlng +
                 ", rating=" + rating +
-                ", attriutions='" + attriutions + '\'' +
+                ", attriutions='" + attriutions + '\n' +
                 '}';
     }
 }

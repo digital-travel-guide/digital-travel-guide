@@ -15,8 +15,6 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-
     </android.support.v7.widget.Toolbar>
 
 
@@ -68,15 +66,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_magnify"/>
-        
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:scaleType="centerCrop"
-            android:id="@+id/place_info"
-            android:src="@drawable/ic_info"/>
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
@@ -92,5 +81,14 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/relLayout1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/place_picker"
+        android:src="@drawable/ic_map"/>
 
 </RelativeLayout>

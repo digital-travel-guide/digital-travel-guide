@@ -28,7 +28,8 @@
             android:ellipsize="end"
             android:maxLines="10"
             android:textSize="14sp"
-            android:textColor="#000"/>
+            android:textColor="#000"
+            android:id="@+id/snippet"/>
 
     </LinearLayout>
 

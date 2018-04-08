@@ -2,6 +2,7 @@ package io.github.digital_travel_guide.digitaltravelguide;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -32,13 +33,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -78,13 +83,16 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private GoogleApiClient mGoogleApiClient;
 
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
-            new LatLng(-40, -168), new LatLng(71, 136));
+            new LatLng(35.96391231596752, -115.83624217356936), new LatLng(36.44179992718371, -114.73434514331382));
+
+    private static final int PLACE_PICKER_REQUEST = 1;
+
 
     private PlaceInfo mPlace;
 
     private Marker mMarker;
 
-    private ImageView mInfo;
+    private ImageView mInfo, mPlacePicker;
 
 
     //This is for checking request for User's GPS location
@@ -124,7 +132,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         mapFragment.getMapAsync(this);
 
         mSearchText = (AutoCompleteTextView) findViewById(R.id.input_search);
-        mInfo = (ImageView) findViewById(R.id.place_info);
+       // mInfo = (ImageView) findViewById(R.id.place_info);
+        mPlacePicker = (ImageView) findViewById(R.id.place_picker);
 
         Toolbar mapToolbar = (Toolbar) findViewById(R.id.map_toolbar);
         setSupportActionBar(mapToolbar);
@@ -161,7 +170,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         mSearchText.setOnItemClickListener(mAutocompleteClickListener);
 
-        mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, null);
+        AutocompleteFilter filter = new AutocompleteFilter.Builder().setCountry("US").build();
+
+        mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, filter);
 
         mSearchText.setAdapter(mPlaceAutocompleteAdapter);
 
@@ -180,17 +191,16 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             }
         });
 
-        mInfo.setOnClickListener(new View.OnClickListener() {
+        mPlacePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-                    if(mMarker.isInfoWindowShown()) {
-                        mMarker.hideInfoWindow();
-                    }else{
-                        mPlace.toString();
-                        mMarker.showInfoWindow();
-                    }
-                } catch(NullPointerException e) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+                try {
+                    startActivityForResult(builder.build(Las_Vegas_MapActivity.this), PLACE_PICKER_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.getMessage();
+                } catch (GooglePlayServicesNotAvailableException e) {
                     e.getMessage();
                 }
             }
@@ -198,6 +208,18 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         hideSoftKeyboard();
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == PLACE_PICKER_REQUEST) {
+            if(resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this,data);
+
+                PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
+                        .getPlaceById(mGoogleApiClient, place.getId());
+                placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+            }
+        }
     }
 
     private void geoLocate(){
@@ -586,12 +608,14 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private void moveCamera(LatLng latlng, float zoom, PlaceInfo placeInfo) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,zoom));
 
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(Las_Vegas_MapActivity.this));
+
         if(placeInfo != null) {
             try {
                 String snippet = "Address: " + placeInfo.getAddress() + "\n" +
                         "Phone Number: " + placeInfo.getPhoneNumber() + "\n" +
                         "Website: " + placeInfo.getWesiteUri() + "\n" +
-                        "Price Rating: " + placeInfo.getRating() + "\n";
+                        "Rating: " + placeInfo.getRating() + "\n";
 
                 MarkerOptions options = new MarkerOptions()
                         .position(latlng)
@@ -626,7 +650,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     }
 
     /*
-    **************************** Google Places API Autocomplete Suggestions
+    **************************** Google Places API Autocomplete Suggestions **************************
      */
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener = new AdapterView.OnItemClickListener() {
