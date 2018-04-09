@@ -221,6 +221,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         return false;
                     }
                 }
+
+
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
         );
         mMap.setOnInfoWindowClickListener(
                 new GoogleMap.OnInfoWindowClickListener() {
@@ -384,7 +389,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         putMarker("Encore");
         putMarker("Circus Circus");
 
-        putMarker("Information Button");
+        //putMarker("Information Button");
     }
 
     private void putMarker(String name) {
@@ -468,8 +473,10 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                             .position(getParking(curLoc.getName()))
                             .title(curLoc.getName() + " Parking")
                             .visible(true)
+                            //.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.parkingmarker))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                     );
+                    current_parking.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.parkingmarkerv2));
                     // Construct a CameraPosition focusing on User location and animate the camera to that position.
                     CameraPosition cameraPosition = new CameraPosition.Builder()
                             .target(current_parking.getPosition())           // Sets the center of the map to Mountain View
