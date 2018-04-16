@@ -824,7 +824,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             }
 
             moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
-*/
+            */
             locationInfo curloc = locationHandler.getClosesLocation(place.getLatLng());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curloc.getLatLng(),17));
             curloc.getMarker().showInfoWindow();
