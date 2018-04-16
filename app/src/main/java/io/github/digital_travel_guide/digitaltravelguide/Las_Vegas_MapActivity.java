@@ -645,17 +645,17 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                 return true;
 
             case R.id.navigation_dashboard:
-<<<<<<< HEAD
+
                 // User chose the "Dashboard" action
                 relativeLayout.setVisibility(View.VISIBLE);
-=======
+
                 // User chose the "searching" action
                 return true;
 
             case R.id.navigation_notifications:
                 // User chose the "parking" action
                 parkingButton(current_building);
->>>>>>> ab71e915b74b703fe9639e4a652b12ddfa02d353
+
                 return true;
 
             default:
