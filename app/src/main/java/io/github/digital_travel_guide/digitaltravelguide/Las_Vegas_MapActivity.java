@@ -239,9 +239,15 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         //Toast.makeText(getApplicationContext(), "Info Window has been clicked.", Toast.LENGTH_SHORT).show();
                         //curLoc.getName()
                         //Send user to information activity
+
+                        /* THIS IS FOR THE ORIGINAL INFORMATIONACTIVITY
                         Intent i = new Intent(getApplicationContext(), informationActivity.class);
                         i.putExtra("locationName", curLoc.getName());
                         startActivity(i);
+                        */
+                        Intent activityTest = new Intent(getApplicationContext(), InformationTesting.class);
+                        activityTest.putExtra("locationName", curLoc.getName());
+                        startActivity(activityTest);
                     }
                 }
         );
