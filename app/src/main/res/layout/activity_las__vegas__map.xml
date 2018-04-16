@@ -82,14 +82,4 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/relLayout1"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:scaleType="centerCrop"
-        android:id="@+id/place_picker"
-        android:src="@drawable/ic_map"/>
-
 </RelativeLayout>
