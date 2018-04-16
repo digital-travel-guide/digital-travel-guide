@@ -828,6 +828,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             locationInfo curloc = locationHandler.getClosesLocation(place.getLatLng());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curloc.getLatLng(),17));
             curloc.getMarker().showInfoWindow();
+            if (current_parking != null) {
+                current_parking.remove();
+                current_parking = null;
+            }
+            current_building =  curloc.getMarker();
             hideSoftKeyboard();
             places.release();
 
