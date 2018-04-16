@@ -59,10 +59,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-<<<<<<< HEAD
+
 import java.io.IOException;
-=======
->>>>>>> master
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +81,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private HashMap mMarkers = new HashMap<Marker, locationInfo>();
     private Marker current_parking = null;
     private Marker current_building = null;
-<<<<<<< HEAD
+
     private GroundOverlay imageOverlay = null;
     private RelativeLayout relativeLayout;
 
@@ -101,9 +100,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private Marker mMarker;
 
     private ImageView mInfo, mPlacePicker;
-=======
+
     private static ArrayList<GroundOverlay> groundArray = new ArrayList<GroundOverlay>();
->>>>>>> master
+
 
 
     //This is for checking request for User's GPS location
