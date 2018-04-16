@@ -29,6 +29,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +78,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private HashMap mMarkers = new HashMap<Marker, locationInfo>();
     private Marker current_parking = null;
     private GroundOverlay imageOverlay = null;
+    private RelativeLayout relativeLayout;
 
     private AutoCompleteTextView mSearchText;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
@@ -138,6 +140,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         Toolbar mapToolbar = (Toolbar) findViewById(R.id.map_toolbar);
         setSupportActionBar(mapToolbar);
 
+        relativeLayout = (RelativeLayout) findViewById(R.id.relLayout1);
+        relativeLayout.setVisibility(View.GONE);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
             mRotVectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
@@ -595,6 +599,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
             case R.id.navigation_dashboard:
                 // User chose the "Dashboard" action
+                relativeLayout.setVisibility(View.VISIBLE);
                 return true;
 
             default:
