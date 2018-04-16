@@ -363,7 +363,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         //curLoc.getName()
                         //Send user to information activity
                         Intent i = new Intent(getApplicationContext(), informationActivity.class);
-                        i.putExtra("locationName", curLoc.getName());
+                        try {
+                            i.putExtra("locationName", curLoc.getName());
+                        } catch (NullPointerException e) {
+                            e.getMessage();
+                        }
                         startActivity(i);
                     }
                 }
