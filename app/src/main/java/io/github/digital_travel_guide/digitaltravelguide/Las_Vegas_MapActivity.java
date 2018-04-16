@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -145,6 +146,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         relativeLayout = (RelativeLayout) findViewById(R.id.relLayout1);
         relativeLayout.setVisibility(View.GONE);
+
+
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
             mRotVectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
@@ -531,6 +534,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         .snippet("Click this box for more information")
                 );
                 mMarkers.put(marker, curLoc);
+                curLoc.setMarker(marker);
             }
         }
     }
@@ -646,10 +650,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
             case R.id.navigation_dashboard:
 
-                // User chose the "Dashboard" action
+                // User chose the "searching" action
                 relativeLayout.setVisibility(View.VISIBLE);
 
-                // User chose the "searching" action
                 return true;
 
             case R.id.navigation_notifications:
@@ -693,6 +696,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         }
 
         hideSoftKeyboard();
+
     }
 
     private void moveCamera(LatLng latlng, float zoom, String title) {
@@ -708,6 +712,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
     private void hideSoftKeyboard() {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow((findViewById(R.id.input_search)).getWindowToken(), 00);
+        relativeLayout.setVisibility(View.GONE);
     }
 
     /*
@@ -738,7 +745,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             }
             final Place place = places.get(0);
 
-            try{
+            /*try{
                 mPlace = new PlaceInfo();
                 mPlace.setName(place.getName().toString());
                 mPlace.setAddress(place.getAddress().toString());
@@ -755,7 +762,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             }
 
             moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
-
+*/
+            locationInfo curloc = locationHandler.getClosesLocation(place.getLatLng());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curloc.getLatLng(),17));
+            curloc.getMarker().showInfoWindow();
+            hideSoftKeyboard();
             places.release();
 
         }
