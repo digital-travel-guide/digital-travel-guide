@@ -59,7 +59,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+<<<<<<< HEAD
 import java.io.IOException;
+=======
+>>>>>>> master
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,6 +82,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private HashMap mMarkers = new HashMap<Marker, locationInfo>();
     private Marker current_parking = null;
     private Marker current_building = null;
+<<<<<<< HEAD
     private GroundOverlay imageOverlay = null;
     private RelativeLayout relativeLayout;
 
@@ -97,6 +101,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private Marker mMarker;
 
     private ImageView mInfo, mPlacePicker;
+=======
+    private static ArrayList<GroundOverlay> groundArray = new ArrayList<GroundOverlay>();
+>>>>>>> master
 
 
     //This is for checking request for User's GPS location
@@ -320,6 +327,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         //Call function that will set initial markers
         setMarkers();
+        //Add the ground maps
+        addGroundMaps();
 
         //These are necessary to enable special phone features like GPS and detecting phone movement
         mMap.setMyLocationEnabled(true);
@@ -352,6 +361,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         return false;
                     }
                 }
+
+
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
         );
         mMap.setOnInfoWindowClickListener(
                 new GoogleMap.OnInfoWindowClickListener() {
@@ -362,6 +376,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         //Toast.makeText(getApplicationContext(), "Info Window has been clicked.", Toast.LENGTH_SHORT).show();
                         //curLoc.getName()
                         //Send user to information activity
+
+                        /* THIS IS FOR THE ORIGINAL INFORMATIONACTIVITY
                         Intent i = new Intent(getApplicationContext(), informationActivity.class);
                         try {
                             i.putExtra("locationName", curLoc.getName());
@@ -369,35 +385,16 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                             e.getMessage();
                         }
                         startActivity(i);
+                        */
+                        Intent activityTest = new Intent(getApplicationContext(), InformationTesting.class);
+                        activityTest.putExtra("locationName", curLoc.getName());
+                        startActivity(activityTest);
                     }
                 }
         );
 
         //Toggle indoor mapping; True to show, False for not
         mMap.setIndoorEnabled(false);
-
-        //Bellagio ground overlay test
-        //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
-
-        LatLng bellagioCenter = new LatLng(36.113406, -115.176031);
-        LatLng bellagioSW = new LatLng(36.110001, -115.179299);
-        LatLng bellagioNE = new LatLng(36.115057, -115.1727991);
-
-        LatLngBounds bellagioBounds = new LatLngBounds(
-                bellagioSW,       // South west corner
-                bellagioNE);      // North east corner
-
-        GroundOverlayOptions bellagioMap = new GroundOverlayOptions()
-                .image(BitmapDescriptorFactory.fromResource(R.drawable.groundmap_bellagio))
-                .positionFromBounds(bellagioBounds)
-                .transparency(0.1f)
-                .visible(false);
-
-        // Add an overlay to the map, retaining a handle to the GroundOverlay object.
-        imageOverlay = mMap.addGroundOverlay(bellagioMap);
-        imageOverlay.setVisible(false);
-
-
 
 
 
@@ -520,7 +517,62 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         putMarker("Encore");
         putMarker("Circus Circus");
 
-        putMarker("Information Button");
+        //putMarker("Information Button");
+    }
+
+    private void addGroundMaps(){
+        GroundOverlay imageOverlay;
+        LatLng buildingCenter;
+        LatLng buildingSW;
+        LatLng buildingNE;
+        LatLngBounds buildingBounds;
+        GroundOverlayOptions buildingMap;
+
+        //Bellagio ground overlay test
+        //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
+
+        buildingCenter = new LatLng(36.113406, -115.176031);
+        buildingSW = new LatLng(36.110001, -115.179299);
+        buildingNE = new LatLng(36.115057, -115.1727991);
+
+        buildingBounds = new LatLngBounds(
+                buildingSW,       // South west corner
+                buildingNE);      // North east corner
+
+        buildingMap = new GroundOverlayOptions()
+                .image(BitmapDescriptorFactory.fromResource(R.drawable.groundmap_bellagio))
+                .positionFromBounds(buildingBounds)
+                .transparency(0.1f)
+                .visible(false);
+
+        // Add an overlay to the map, retaining a handle to the GroundOverlay object.
+        imageOverlay = mMap.addGroundOverlay(buildingMap);
+        imageOverlay.setVisible(false);
+        groundArray.add(imageOverlay);
+
+        //Caesars Palace
+        //36.114853, -115.178580 SW
+        //36.118964, -115.172915 NE
+        //Caesars Palace ground overlay test
+        //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
+
+        buildingSW = new LatLng(36.114853, -115.178580);
+        buildingNE = new LatLng(36.118964, -115.172915);
+
+        buildingBounds = new LatLngBounds(
+                buildingSW,       // South west corner
+                buildingNE);      // North east corner
+
+        buildingMap = new GroundOverlayOptions()
+                .image(BitmapDescriptorFactory.fromResource(R.drawable.groundmap_caesars_palace))
+                .positionFromBounds(buildingBounds)
+                .transparency(0.1f)
+                .visible(false);
+
+        // Add an overlay to the map, retaining a handle to the GroundOverlay object.
+        imageOverlay = mMap.addGroundOverlay(buildingMap);
+        imageOverlay.setVisible(false);
+        groundArray.add(imageOverlay);
     }
 
     private void putMarker(String name) {
@@ -561,22 +613,27 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     public void nearCamLocation(){
         LatLng camLocation = mMap.getCameraPosition().target;
 
-        //Get Bellagio bounds from the Ground Overlay
-        LatLngBounds bellagioBounds = imageOverlay.getBounds();
-        LatLng bellagioSW = bellagioBounds.southwest;
-        LatLng bellagioNE = bellagioBounds.northeast;
+        LatLngBounds currentBounds;
+        LatLng currentSW;
+        LatLng currentNE;
 
-        if(camLocation.latitude <= bellagioNE.latitude && camLocation.latitude >= bellagioSW.latitude) {
-            if(camLocation.longitude <= bellagioNE.longitude && camLocation.longitude >= bellagioSW.longitude) {
-                imageOverlay.setVisible(true);
+        for (GroundOverlay current_ground : groundArray) {
+            //Get current ground overlay bounds from the Ground Overlay
+            currentBounds = current_ground.getBounds();
+            currentSW = currentBounds.southwest;
+            currentNE = currentBounds.northeast;
+
+            if(camLocation.latitude <= currentNE.latitude && camLocation.latitude >= currentSW.latitude) {
+                if(camLocation.longitude <= currentNE.longitude && camLocation.longitude >= currentSW.longitude) {
+                    current_ground.setVisible(true);
+                }
+                else{
+                    current_ground.setVisible(false);
+                }
+            }else{
+                current_ground.setVisible(false);
             }
-            else{
-                imageOverlay.setVisible(false);
-            }
-        }else{
-            imageOverlay.setVisible(false);
         }
-
     }
 
     private void parkingButton(Marker marker){
@@ -605,8 +662,10 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                             .position(getParking(curLoc.getName()))
                             .title(curLoc.getName() + " Parking")
                             .visible(true)
+                            //.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.parkingmarker))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                     );
+                    current_parking.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.parkingmarkerv2));
                     // Construct a CameraPosition focusing on User location and animate the camera to that position.
                     CameraPosition cameraPosition = new CameraPosition.Builder()
                             .target(current_parking.getPosition())           // Sets the center of the map to Mountain View

@@ -195,6 +195,11 @@
       "id": "00017",
       "name": "Bellagio",
 
+      "phone": "(888) 987-6667",
+      "address1": "3600 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.bellagio.com",
+
       "lat": "36.112626",
       "lng": "-115.176705",
 
@@ -218,6 +223,11 @@
     {
       "id": "00019",
       "name": "Caesar's Palace",
+
+      "phone": "(866) 227-5938",
+      "address1": "3570 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.caesars.com",
 
       "lat": "36.116169",
       "lng": "-115.174499",

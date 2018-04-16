@@ -16,7 +16,7 @@
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@android:drawable/ic_menu_compass"
+        android:icon="@drawable/parkingicon"
         android:title="@string/parking"
         app:showAsAction="ifRoom"/>
 

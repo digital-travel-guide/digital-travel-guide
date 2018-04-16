@@ -43,8 +43,9 @@
         </activity>
         <activity
             android:name=".Las_Vegas_MapActivity"
-            android:label="VegasGo"></activity>
-        <activity android:name=".informationActivity"></activity>
+            android:label="VegasGo" />
+        <activity android:name=".informationActivity" />
+        <activity android:name=".InformationTesting"></activity>
     </application>
 
 </manifest>
