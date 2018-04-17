@@ -72,7 +72,7 @@ public class locationHandler {
         return null;
     }
 
-    public static locationInfo getClosesLocation(LatLng place) {
+    public static locationInfo getClosestLocation(LatLng place) {
         //iterate through each location
         locationInfo curLoc = locationInfoArr.get(0);
         //calculate distance
@@ -81,10 +81,12 @@ public class locationHandler {
 
         for (locationInfo loc : locationInfoArr) {
             //if shorter than shortest distance, set this marker as the closest
-            checkDistance = calcDistance(loc.getLatLng(),place);
-            if (checkDistance < curDistance) {
-                curLoc = loc;
-                curDistance = checkDistance;
+            if (loc.getMarker() != null) {
+                checkDistance = calcDistance(loc.getLatLng(), place);
+                if (checkDistance < curDistance) {
+                    curLoc = loc;
+                    curDistance = checkDistance;
+                }
             }
         }
         return curLoc;
