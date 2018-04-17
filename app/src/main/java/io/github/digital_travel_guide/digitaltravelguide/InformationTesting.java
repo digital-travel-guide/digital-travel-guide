@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.Activity;
 
 
 public class InformationTesting extends AppCompatActivity {
 
     private String currentLocationNameTest;
+    private String phNumber;
+    //ADD MORE VARIABLES
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +23,17 @@ public class InformationTesting extends AppCompatActivity {
         Bundle b = i.getExtras();
         if (b != null) {
             currentLocationNameTest = (String) b.get("locationName");
+            phNumber=(String) b.get("phone");
+            //UPDATE ADDED VARIABLES HERE
             Toast.makeText(this, "Current location:\n" + currentLocationNameTest, Toast.LENGTH_LONG).show();
         }
+
+        TextView LocationHotel=(TextView)this.findViewById(R.id.locationName);
+        LocationHotel.setText(currentLocationNameTest);
     }
 
-    /**
-    String hotelName=currentLocationNameTest;
-    TextView LocationHotel;
-    LocationHotel=(TextView)findViewById(R.id.locationName);
-    LocationHotel.setText(hotelName);
-    */
+
+
 
     public void returnToMapView(View v)
     {

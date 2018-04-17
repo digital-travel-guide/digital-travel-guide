@@ -16,6 +16,7 @@
         android:contentDescription="background image"
         android:contextClickable="false"
         android:paddingHorizontal="75dp"
+        android:visibility="visible"
         app:srcCompat="@drawable/launch001testing"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
@@ -36,8 +37,8 @@
         android:background="@drawable/backbutton002"
         android:onClick="returnToMapView"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="18dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <TextView
         android:id="@+id/locationName"
