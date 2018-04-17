@@ -1,42 +1,57 @@
 package io.github.digital_travel_guide.digitaltravelguide;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SpinnerAdapter;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -44,11 +59,17 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
+import java.io.IOException;
+
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.WeakHashMap;
+import java.util.List;
+
+import io.github.digital_travel_guide.digitaltravelguide.models.PlaceInfo;
 
 public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, SensorEventListener, GoogleMap.OnCameraIdleListener {
+        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, SensorEventListener, GoogleMap.OnCameraIdleListener, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -59,7 +80,29 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private Sensor mRotVectSensor;
     private HashMap mMarkers = new HashMap<Marker, locationInfo>();
     private Marker current_parking = null;
+    private Marker current_building = null;
+
     private GroundOverlay imageOverlay = null;
+    private RelativeLayout relativeLayout;
+
+    private AutoCompleteTextView mSearchText;
+    private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
+    private GoogleApiClient mGoogleApiClient;
+
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
+            new LatLng(35.96391231596752, -115.83624217356936), new LatLng(36.44179992718371, -114.73434514331382));
+
+    private static final int PLACE_PICKER_REQUEST = 1;
+
+
+    private PlaceInfo mPlace;
+
+    private Marker mMarker;
+
+    private ImageView mInfo, mPlacePicker;
+
+    private static ArrayList<GroundOverlay> groundArray = new ArrayList<GroundOverlay>();
+
 
 
     //This is for checking request for User's GPS location
@@ -75,6 +118,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         }
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
     //Get the menu options bar based on the navigation.xml file under the menu directory
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,13 +135,24 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_las__vegas__map);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        mSearchText = (AutoCompleteTextView) findViewById(R.id.input_search);
+       // mInfo = (ImageView) findViewById(R.id.place_info);
+        mPlacePicker = (ImageView) findViewById(R.id.place_picker);
+
         Toolbar mapToolbar = (Toolbar) findViewById(R.id.map_toolbar);
         setSupportActionBar(mapToolbar);
+        //mapToolbar.setTitle(mapToolbar.getTitle());
+        //mapToolbar.setTitleTextColor(0x42ffffff);
+
+        relativeLayout = (RelativeLayout) findViewById(R.id.relLayout1);
+        relativeLayout.setVisibility(View.GONE);
+
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
@@ -102,8 +161,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             mRotVectSensor = null;
         }
 
-    }
+        init();
 
+    }
 
     /**
      * Manipulates the map once available.
@@ -114,6 +174,87 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+    private void init() {
+
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this,this)
+                .build();
+
+        mSearchText.setOnItemClickListener(mAutocompleteClickListener);
+
+        AutocompleteFilter filter = new AutocompleteFilter.Builder().setCountry("US").build();
+
+        mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, filter);
+
+        mSearchText.setAdapter(mPlaceAutocompleteAdapter);
+
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+
+                    //execute our method for searching
+                    geoLocate();
+                }
+                return false;
+            }
+        });
+
+        mPlacePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+                try {
+                    startActivityForResult(builder.build(Las_Vegas_MapActivity.this), PLACE_PICKER_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.getMessage();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.getMessage();
+                }
+            }
+        });
+
+        hideSoftKeyboard();
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == PLACE_PICKER_REQUEST) {
+            if(resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this,data);
+
+                PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
+                        .getPlaceById(mGoogleApiClient, place.getId());
+                placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+            }
+        }
+    }
+
+    private void geoLocate(){
+        String searchString = mSearchText.getText().toString();
+
+        Geocoder geocoder = new Geocoder(Las_Vegas_MapActivity.this);
+        List<Address> list = new ArrayList<>();
+        try{
+            list = geocoder.getFromLocationName(searchString, 1);
+        }catch(IOException e) {
+            e.getMessage();
+        }
+
+        if(list.size() > 0) {
+            Address address = list.get(0);
+            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), 15f,address.getAddressLine(0));
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -185,6 +326,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         //Call function that will set initial markers
         setMarkers();
+        //Add the ground maps
+        addGroundMaps();
 
         //These are necessary to enable special phone features like GPS and detecting phone movement
         mMap.setMyLocationEnabled(true);
@@ -199,6 +342,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         //Check to see if this is a parking marker, if yes, do nothing, else continue
                         if(marker.getTitle().endsWith("Parking")){
                             //Do nothing, this is a parking marker
+                            current_building = marker;
                         }
                         else {
                             if (current_parking != null) {
@@ -207,7 +351,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                             }
                             //The marker has been clicked, and now we have the building info for that marker
                             //Toast.makeText(getApplicationContext(), "Marker has been clicked.", Toast.LENGTH_SHORT).show();
-
+                            current_building = marker;
 
                         }
                         // Return false to indicate that we have not consumed the event and that we wish
@@ -216,6 +360,11 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         return false;
                     }
                 }
+
+
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
+                //<<<<<<<<<<<<<<<<<<<<<<<<<
         );
         mMap.setOnInfoWindowClickListener(
                 new GoogleMap.OnInfoWindowClickListener() {
@@ -224,54 +373,27 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         locationInfo curLoc = (locationInfo) mMarkers.get(marker);
                         //The marker has been clicked, and now we have the building info for that marker
                         //Toast.makeText(getApplicationContext(), "Info Window has been clicked.", Toast.LENGTH_SHORT).show();
-                        if(current_parking == null && getParking(curLoc.getName()) != null) {
-                            current_parking = mMap.addMarker(new MarkerOptions()
-                                    .position(getParking(curLoc.getName()))
-                                    .title(curLoc.getName() + " Parking")
-                                    .visible(true)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                            );
-                            // Construct a CameraPosition focusing on User location and animate the camera to that position.
-                            CameraPosition cameraPosition = new CameraPosition.Builder()
-                                    .target(current_parking.getPosition())           // Sets the center of the map to Mountain View
-                                    .zoom(17)                                       // Sets the zoom
-                                    .bearing(0)                                     // Sets the orientation of the camera to user's , location.getBearing()
-                                    .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
-                                    .build();                                       // Creates a CameraPosition from the builder
-                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        //curLoc.getName()
+                        //Send user to information activity
+
+                        /* THIS IS FOR THE ORIGINAL INFORMATIONACTIVITY
+                        Intent i = new Intent(getApplicationContext(), informationActivity.class);
+                        try {
+                            i.putExtra("locationName", curLoc.getName());
+                        } catch (NullPointerException e) {
+                            e.getMessage();
                         }
-                        else{
-                            Toast.makeText(getApplicationContext(), "No parking at the moment.", Toast.LENGTH_SHORT).show();
-                        }
+                        startActivity(i);
+                        */
+                        Intent activityTest = new Intent(getApplicationContext(), InformationTesting.class);
+                        activityTest.putExtra("locationName", curLoc.getName());
+                        startActivity(activityTest);
                     }
                 }
         );
 
         //Toggle indoor mapping; True to show, False for not
         mMap.setIndoorEnabled(false);
-
-        //Bellagio ground overlay test
-        //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
-
-        LatLng bellagioCenter = new LatLng(36.113406, -115.176031);
-        LatLng bellagioSW = new LatLng(36.110001, -115.179299);
-        LatLng bellagioNE = new LatLng(36.115057, -115.1727991);
-
-        LatLngBounds bellagioBounds = new LatLngBounds(
-                bellagioSW,       // South west corner
-                bellagioNE);      // North east corner
-
-        GroundOverlayOptions bellagioMap = new GroundOverlayOptions()
-                .image(BitmapDescriptorFactory.fromResource(R.drawable.groundmap_bellagio))
-                .positionFromBounds(bellagioBounds)
-                .transparency(0.1f)
-                .visible(false);
-
-        // Add an overlay to the map, retaining a handle to the GroundOverlay object.
-        imageOverlay = mMap.addGroundOverlay(bellagioMap);
-        imageOverlay.setVisible(false);
-
-
 
 
 
@@ -394,7 +516,62 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         putMarker("Encore");
         putMarker("Circus Circus");
 
-        putMarker("Information Button");
+        //putMarker("Information Button");
+    }
+
+    private void addGroundMaps(){
+        GroundOverlay imageOverlay;
+        LatLng buildingCenter;
+        LatLng buildingSW;
+        LatLng buildingNE;
+        LatLngBounds buildingBounds;
+        GroundOverlayOptions buildingMap;
+
+        //Bellagio ground overlay test
+        //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
+
+        buildingCenter = new LatLng(36.113406, -115.176031);
+        buildingSW = new LatLng(36.110001, -115.179299);
+        buildingNE = new LatLng(36.115057, -115.1727991);
+
+        buildingBounds = new LatLngBounds(
+                buildingSW,       // South west corner
+                buildingNE);      // North east corner
+
+        buildingMap = new GroundOverlayOptions()
+                .image(BitmapDescriptorFactory.fromResource(R.drawable.groundmap_bellagio))
+                .positionFromBounds(buildingBounds)
+                .transparency(0.1f)
+                .visible(false);
+
+        // Add an overlay to the map, retaining a handle to the GroundOverlay object.
+        imageOverlay = mMap.addGroundOverlay(buildingMap);
+        imageOverlay.setVisible(false);
+        groundArray.add(imageOverlay);
+
+        //Caesars Palace
+        //36.114853, -115.178580 SW
+        //36.118964, -115.172915 NE
+        //Caesars Palace ground overlay test
+        //information here: https://developers.google.com/maps/documentation/android-api/groundoverlay
+
+        buildingSW = new LatLng(36.114853, -115.178580);
+        buildingNE = new LatLng(36.118964, -115.172915);
+
+        buildingBounds = new LatLngBounds(
+                buildingSW,       // South west corner
+                buildingNE);      // North east corner
+
+        buildingMap = new GroundOverlayOptions()
+                .image(BitmapDescriptorFactory.fromResource(R.drawable.groundmap_caesars_palace))
+                .positionFromBounds(buildingBounds)
+                .transparency(0.1f)
+                .visible(false);
+
+        // Add an overlay to the map, retaining a handle to the GroundOverlay object.
+        imageOverlay = mMap.addGroundOverlay(buildingMap);
+        imageOverlay.setVisible(false);
+        groundArray.add(imageOverlay);
     }
 
     private void putMarker(String name) {
@@ -409,9 +586,10 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         .position(curLoc.getLatLng())
                         .title(curLoc.getName())
                         .visible(true)
-                        .snippet("Click this box to find nearest Parking")
+                        .snippet("Click this box for more information")
                 );
                 mMarkers.put(marker, curLoc);
+                curLoc.setMarker(marker);
             }
         }
     }
@@ -434,22 +612,86 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     public void nearCamLocation(){
         LatLng camLocation = mMap.getCameraPosition().target;
 
-        //Get Bellagio bounds from the Ground Overlay
-        LatLngBounds bellagioBounds = imageOverlay.getBounds();
-        LatLng bellagioSW = bellagioBounds.southwest;
-        LatLng bellagioNE = bellagioBounds.northeast;
+        LatLngBounds currentBounds;
+        LatLng currentSW;
+        LatLng currentNE;
 
-        if(camLocation.latitude <= bellagioNE.latitude && camLocation.latitude >= bellagioSW.latitude) {
-            if(camLocation.longitude <= bellagioNE.longitude && camLocation.longitude >= bellagioSW.longitude) {
-                imageOverlay.setVisible(true);
+        for (GroundOverlay current_ground : groundArray) {
+            //Get current ground overlay bounds from the Ground Overlay
+            currentBounds = current_ground.getBounds();
+            currentSW = currentBounds.southwest;
+            currentNE = currentBounds.northeast;
+
+            if(camLocation.latitude <= currentNE.latitude && camLocation.latitude >= currentSW.latitude) {
+                if(camLocation.longitude <= currentNE.longitude && camLocation.longitude >= currentSW.longitude) {
+                    current_ground.setVisible(true);
+                }
+                else{
+                    current_ground.setVisible(false);
+                }
+            }else{
+                current_ground.setVisible(false);
             }
-            else{
-                imageOverlay.setVisible(false);
-            }
-        }else{
-            imageOverlay.setVisible(false);
         }
+    }
 
+    private void parkingButton(Marker marker){
+        if (marker == null){
+            //Do nothing, no building or parking is selected
+            Toast.makeText(this, "Select a building to view its parking", Toast.LENGTH_SHORT).show();
+        }else{
+            if(marker.getTitle().endsWith("Parking")) {
+                //Parking marker selected
+                //Move camera to parking marker
+                // Construct a CameraPosition focusing on User location and animate the camera to that position.
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(marker.getPosition())           // Sets the center of the map to Mountain View
+                        .zoom(17)                                       // Sets the zoom
+                        .bearing(0)                                     // Sets the orientation of the camera to user's , location.getBearing()
+                        .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
+                        .build();                                       // Creates a CameraPosition from the builder
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }else{
+                //Building marker selected
+                locationInfo curLoc = (locationInfo) mMarkers.get(marker);
+                //The marker has been clicked, and now we have the building info for that marker
+                //Create a parking marker if applicable
+                if(current_parking == null && getParking(curLoc.getName()) != null) {
+                    current_parking = mMap.addMarker(new MarkerOptions()
+                            .position(getParking(curLoc.getName()))
+                            .title(curLoc.getName() + " Parking")
+                            .visible(true)
+                            //.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.parkingmarker))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                    );
+                    current_parking.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.parkingmarkerv2));
+                    // Construct a CameraPosition focusing on User location and animate the camera to that position.
+                    CameraPosition cameraPosition = new CameraPosition.Builder()
+                            .target(current_parking.getPosition())           // Sets the center of the map to Mountain View
+                            .zoom(17)                                       // Sets the zoom
+                            .bearing(0)                                     // Sets the orientation of the camera to user's , location.getBearing()
+                            .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
+                            .build();                                       // Creates a CameraPosition from the builder
+                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                }
+                else{
+                    if(getParking(curLoc.getName()) == null) {
+                        Toast.makeText(getApplicationContext(), "No parking at the moment.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(current_parking != null){
+                            // Construct a CameraPosition focusing on User location and animate the camera to that position.
+                            CameraPosition cameraPosition = new CameraPosition.Builder()
+                                    .target(current_parking.getPosition())           // Sets the center of the map to Mountain View
+                                    .zoom(17)                                       // Sets the zoom
+                                    .bearing(0)                                     // Sets the orientation of the camera to user's , location.getBearing()
+                                    .tilt(0)                                        // Sets the tilt of the camera to 0 degrees
+                                    .build();                                       // Creates a CameraPosition from the builder
+                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
@@ -469,7 +711,16 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                 return true;
 
             case R.id.navigation_dashboard:
-                // User chose the "Dashboard" action
+
+                // User chose the "searching" action
+                relativeLayout.setVisibility(View.VISIBLE);
+
+                return true;
+
+            case R.id.navigation_notifications:
+                // User chose the "parking" action
+                parkingButton(current_building);
+
                 return true;
 
             default:
@@ -479,5 +730,113 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         }
     }
+
+    private void moveCamera(LatLng latlng, float zoom, PlaceInfo placeInfo) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,zoom));
+
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(Las_Vegas_MapActivity.this));
+
+        if(placeInfo != null) {
+            try {
+                String snippet = "Address: " + placeInfo.getAddress() + "\n" +
+                        "Phone Number: " + placeInfo.getPhoneNumber() + "\n" +
+                        "Website: " + placeInfo.getWesiteUri() + "\n" +
+                        "Rating: " + placeInfo.getRating() + "\n";
+
+                MarkerOptions options = new MarkerOptions()
+                        .position(latlng)
+                        .title(placeInfo.getName())
+                        .snippet(snippet);
+
+                mMarker = mMap.addMarker(options);
+
+            } catch (NullPointerException e) {
+                e.getMessage();
+            }
+        } else {
+            mMap.addMarker(new MarkerOptions().position(latlng));
+        }
+
+        hideSoftKeyboard();
+
+    }
+
+    private void moveCamera(LatLng latlng, float zoom, String title) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,zoom));
+
+        MarkerOptions options = new MarkerOptions()
+                .position(latlng)
+                .title(title);
+        mMap.addMarker(options);
+
+        hideSoftKeyboard();
+    }
+
+    private void hideSoftKeyboard() {
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow((findViewById(R.id.input_search)).getWindowToken(), 00);
+        relativeLayout.setVisibility(View.GONE);
+    }
+
+    /*
+    **************************** Google Places API Autocomplete Suggestions **************************
+     */
+
+    private AdapterView.OnItemClickListener mAutocompleteClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            hideSoftKeyboard();
+
+            final AutocompletePrediction item = mPlaceAutocompleteAdapter.getItem(i);
+            final String placeId = item.getPlaceId();
+
+            PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
+                    .getPlaceById(mGoogleApiClient, placeId);
+            placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+        }
+    };
+
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(@NonNull PlaceBuffer places) {
+            if(!places.getStatus().isSuccess()) {
+                places.getStatus().toString();
+                places.release();
+                return;
+            }
+            final Place place = places.get(0);
+
+            /*try{
+                mPlace = new PlaceInfo();
+                mPlace.setName(place.getName().toString());
+                mPlace.setAddress(place.getAddress().toString());
+                //mPlace.setAttriutions(place.getAttributions().toString());
+                mPlace.setId(place.getId());
+                mPlace.setLatlng(place.getLatLng());
+                mPlace.setRating(place.getRating());
+                mPlace.setPhoneNumber(place.getPhoneNumber().toString());
+                mPlace.setWesiteUri(place.getWebsiteUri());
+
+                mPlace.toString();
+            }catch (NullPointerException e) {
+                e.getMessage();
+            }
+
+            moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
+            */
+            locationInfo curloc = locationHandler.getClosestLocation(place.getLatLng());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curloc.getLatLng(),17));
+            curloc.getMarker().showInfoWindow();
+            if (current_parking != null) {
+                current_parking.remove();
+                current_parking = null;
+            }
+            current_building =  curloc.getMarker();
+            hideSoftKeyboard();
+            places.release();
+
+        }
+    };
 
 }

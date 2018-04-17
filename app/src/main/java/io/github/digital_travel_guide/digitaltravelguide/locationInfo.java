@@ -17,6 +17,15 @@ public class locationInfo {
     private double parkingLat;
     private double parkingLng;
     private String googleID;
+    private Marker marker = null;
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
+    }
 
     public locationInfo(int id, String name, double lat, double lng, double parkingLat, double parkingLng, String googleID) {
         this.id = id;
@@ -69,27 +78,4 @@ public class locationInfo {
             return null;
         }
     }
-
-    /*
-    private LatLng position;
-    private Marker marker;
-
-    public locationInfo(String name, LatLng position, Marker marker) {
-        this.name = name;
-        this.position = position;
-        this.marker = marker;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LatLng getPosition() {
-        return position;
-    }
-
-    public Marker getMarker() {
-        return marker;
-    }
-    */
 }
