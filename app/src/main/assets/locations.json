@@ -2,6 +2,11 @@
 	{
 		"id": "00001",
 		"name": "Mandalay Bay",
+
+        "phone": "(XXX) XXX-XXXX",
+        "address1": "XXXX S. Las Vegas Blvd.",
+        "address2": "Las Vegas, NV XXXXX",
+        "webaddress": "https://www.hotel.com",
 		
 		"lat": "36.091799",
 		"lng": "-115.176143",
@@ -15,6 +20,11 @@
 		"id": "00002",
 		"name": "Tropicana",
 
+        "phone": "(XXX) XXX-XXXX",
+        "address1": "XXXX S. Las Vegas Blvd.",
+        "address2": "Las Vegas, NV XXXXX",
+        "webaddress": "https://www.hotel.com",
+
         "lat": "36.099635",
         "lng": "-115.171358",
 
@@ -26,6 +36,11 @@
 	{
 		"id": "00003",
 		"name": "Luxor",
+
+        "phone": "(XXX) XXX-XXXX",
+        "address1": "XXXX S. Las Vegas Blvd.",
+        "address2": "Las Vegas, NV XXXXX",
+        "webaddress": "https://www.hotel.com",
 		
 		"lat": "36.095480",
 		"lng": "-115.175788",
@@ -39,6 +54,11 @@
       "id": "00004",
       "name": "MGM Grand",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.102576",
       "lng": "-115.170253",
 
@@ -50,6 +70,11 @@
     {
       "id": "00005",
       "name": "Excalibur",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.098982",
       "lng": "-115.175472",
@@ -63,6 +88,11 @@
       "id": "00006",
       "name": "Planet Hollywood",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.109970",
       "lng": "-115.170065",
 
@@ -74,6 +104,11 @@
     {
       "id": "00007",
       "name": "New York New York",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.102371",
       "lng": "-115.174556",
@@ -87,6 +122,11 @@
       "id": "00008",
       "name": "Paris Las Vegas",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.112541",
       "lng": "-115.170671",
 
@@ -98,6 +138,11 @@
     {
       "id": "00009",
       "name": "Monte Carlo",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.104584",
       "lng": "-115.174465",
@@ -111,6 +156,11 @@
       "id": "00010",
       "name": "Bally's",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.114061",
       "lng": "-115.170627",
 
@@ -122,6 +172,11 @@
     {
       "id": "00011",
       "name": "Aria",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.107458",
       "lng": "-115.176716",
@@ -135,6 +190,11 @@
       "id": "00012",
       "name": "Flamingo",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.116441",
       "lng": "-115.170792",
 
@@ -146,6 +206,11 @@
     {
       "id": "00013",
       "name": "The Cosmopolitan",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.109755",
       "lng": "-115.173877",
@@ -159,6 +224,11 @@
     "id": "00014",
     "name": "The Linq",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
     "lat": "36.118154",
     "lng": "-115.172442",
 
@@ -171,6 +241,11 @@
       "id": "00015",
       "name": "Vdara",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.109384",
       "lng": "-115.178132",
 
@@ -182,6 +257,11 @@
     {
       "id": "00016",
       "name": "Harrah's",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.119464",
       "lng": "-115.171639",
@@ -212,6 +292,11 @@
       "id": "00018",
       "name": "The Venetian",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.121174",
       "lng": "-115.169653",
 
@@ -241,6 +326,11 @@
       "id": "00020",
       "name": "The Palazzo",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.123967",
       "lng": "-115.167916",
 
@@ -252,6 +342,11 @@
     {
       "id": "00021",
       "name": "The Mirage",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.121196",
       "lng": "-115.174074",
@@ -265,6 +360,11 @@
       "id": "00022",
       "name": "Wynn Las Vegas",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.126490",
       "lng": "-115.165739",
 
@@ -276,6 +376,11 @@
     {
       "id": "00023",
       "name": "Treasure Island",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.124745",
       "lng": "-115.172081",
@@ -289,6 +394,11 @@
       "id": "00024",
       "name": "Encore",
 
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
+
       "lat": "36.129075",
       "lng": "-115.165290",
 
@@ -300,6 +410,11 @@
     {
       "id": "00025",
       "name": "Circus Circus",
+
+      "phone": "(XXX) XXX-XXXX",
+      "address1": "XXXX S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV XXXXX",
+      "webaddress": "https://www.hotel.com",
 
       "lat": "36.137772",
       "lng": "-115.165370",

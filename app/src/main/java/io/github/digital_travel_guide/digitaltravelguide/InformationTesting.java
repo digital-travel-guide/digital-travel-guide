@@ -12,7 +12,7 @@ import android.app.Activity;
 public class InformationTesting extends AppCompatActivity {
 
     private String currentLocationNameTest;
-    private String phNumber;
+    private String phNumber, locationInformation, locInfo1, locInfo2;
     //ADD MORE VARIABLES
 
     @Override
@@ -24,12 +24,20 @@ public class InformationTesting extends AppCompatActivity {
         if (b != null) {
             currentLocationNameTest = (String) b.get("locationName");
             phNumber=(String) b.get("phone");
+            locInfo1=(String) b.get("address1");
+            locInfo2=(String) b.get("address2");
+            locationInformation=locInfo1+locInfo2+"\n\n"+phNumber;
+
             //UPDATE ADDED VARIABLES HERE
             Toast.makeText(this, "Current location:\n" + currentLocationNameTest, Toast.LENGTH_LONG).show();
         }
 
         TextView LocationHotel=(TextView)this.findViewById(R.id.locationName);
         LocationHotel.setText(currentLocationNameTest);
+
+        TextView LocationHotelInfo=(TextView)this.findViewById(R.id.hotelInfo);
+        LocationHotelInfo.setText(locationInformation);
+
     }
 
 
