@@ -80,17 +80,25 @@
             android:hint="Enter Address, City, or Zip Code"
             android:imeOptions="actionSearch"/>
 
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:onClick="hideSearch"
+            android:text="Cancel" />
+
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/place_picker"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/relLayout1"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_alignEnd="@+id/relLayout1"
+        android:layout_alignTop="@+id/cameraActionButton"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_map"
-        tools:visibility="gone" />
+        android:visibility="gone" />
 
 </RelativeLayout>

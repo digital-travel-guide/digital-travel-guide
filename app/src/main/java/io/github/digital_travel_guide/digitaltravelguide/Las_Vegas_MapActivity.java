@@ -29,6 +29,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -84,6 +85,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
     private GroundOverlay imageOverlay = null;
     private RelativeLayout relativeLayout;
+    private Button cancel_button;
 
     private AutoCompleteTextView mSearchText;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
@@ -152,6 +154,9 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         relativeLayout = (RelativeLayout) findViewById(R.id.relLayout1);
         relativeLayout.setVisibility(View.GONE);
+
+        cancel_button = (Button) findViewById(R.id.cancel_button);
+        cancel_button.setVisibility(View.GONE);
 
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -385,6 +390,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         }
                         startActivity(i);
                         */
+                        View view = null;
+                        hideSearch(view);
                         Intent activityTest = new Intent(getApplicationContext(), InformationTesting.class);
                         activityTest.putExtra("locationName", curLoc.getName());
                         startActivity(activityTest);
@@ -714,7 +721,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
                 // User chose the "searching" action
                 relativeLayout.setVisibility(View.VISIBLE);
-
+                cancel_button.setVisibility(View.VISIBLE);
                 return true;
 
             case R.id.navigation_notifications:
@@ -777,6 +784,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow((findViewById(R.id.input_search)).getWindowToken(), 00);
         relativeLayout.setVisibility(View.GONE);
+        AutoCompleteTextView search_box = (AutoCompleteTextView) findViewById(R.id.input_search);
+        search_box.setText("");
     }
 
     /*
@@ -786,7 +795,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private AdapterView.OnItemClickListener mAutocompleteClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            hideSoftKeyboard();
+            //hideSoftKeyboard();
 
             final AutocompletePrediction item = mPlaceAutocompleteAdapter.getItem(i);
             final String placeId = item.getPlaceId();
@@ -836,7 +845,14 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             hideSoftKeyboard();
             places.release();
 
+
         }
     };
+
+    public void hideSearch(View view){
+        hideSoftKeyboard();
+        cancel_button.setVisibility(View.GONE);
+
+    }
 
 }
