@@ -1,7 +1,5 @@
 package io.github.digital_travel_guide.digitaltravelguide;
 
-import android.content.Intent;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
@@ -12,8 +10,15 @@ import com.google.android.gms.maps.model.Marker;
 public class locationInfo {
     private int id;
     private String name;
+
+    private String phone;
+    private String address1;
+    private String address2;
+    private String webaddress;
+
     private double lat;
     private double lng;
+
     private double parkingLat;
     private double parkingLng;
     private String googleID;
@@ -27,9 +32,13 @@ public class locationInfo {
         this.marker = marker;
     }
 
-    public locationInfo(int id, String name, double lat, double lng, double parkingLat, double parkingLng, String googleID) {
+    public locationInfo(int id, String name, String phone, String address1, String address2, String webaddress, double lat, double lng, double parkingLat, double parkingLng, String googleID) {
         this.id = id;
         this.name = name;
+        this.phone = phone;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.webaddress = webaddress;
         this.lat = lat;
         this.lng = lng;
         this.parkingLat = parkingLat;
@@ -43,6 +52,22 @@ public class locationInfo {
 
     public String getName() {
         return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress1() {
+        return address1;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public String getWebaddress() {
+        return webaddress;
     }
 
     public double getLat() {

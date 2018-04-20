@@ -3,10 +3,10 @@
 		"id": "00001",
 		"name": "Mandalay Bay",
 
-        "phone": "(XXX) XXX-XXXX",
-        "address1": "XXXX S. Las Vegas Blvd.",
-        "address2": "Las Vegas, NV XXXXX",
-        "webaddress": "https://www.hotel.com",
+        "phone": "(702) 632-7777",
+        "address1": "3950 S. Las Vegas Blvd.",
+        "address2": "Las Vegas, NV 89119",
+        "webaddress": "https://www.mandalaybay.com",
 		
 		"lat": "36.091799",
 		"lng": "-115.176143",
@@ -20,10 +20,10 @@
 		"id": "00002",
 		"name": "Tropicana",
 
-        "phone": "(XXX) XXX-XXXX",
-        "address1": "XXXX S. Las Vegas Blvd.",
-        "address2": "Las Vegas, NV XXXXX",
-        "webaddress": "https://www.hotel.com",
+        "phone": "(702) 739-2222",
+        "address1": "3801 S. Las Vegas Blvd.",
+        "address2": "Las Vegas, NV 89109",
+        "webaddress": "https://www.troplv.com",
 
         "lat": "36.099635",
         "lng": "-115.171358",
@@ -37,10 +37,10 @@
 		"id": "00003",
 		"name": "Luxor",
 
-        "phone": "(XXX) XXX-XXXX",
-        "address1": "XXXX S. Las Vegas Blvd.",
-        "address2": "Las Vegas, NV XXXXX",
-        "webaddress": "https://www.hotel.com",
+        "phone": "(702) 262-4000",
+        "address1": "3900 S. Las Vegas Blvd.",
+        "address2": "Las Vegas, NV 89119",
+        "webaddress": "https://www.luxor.com",
 		
 		"lat": "36.095480",
 		"lng": "-115.175788",
@@ -54,10 +54,10 @@
       "id": "00004",
       "name": "MGM Grand",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(877) 880-0880",
+      "address1": "3799 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.mgmgrand.com",
 
       "lat": "36.102576",
       "lng": "-115.170253",
@@ -71,10 +71,10 @@
       "id": "00005",
       "name": "Excalibur",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 597-7777",
+      "address1": "3850 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.excalibur.com",
 
       "lat": "36.098982",
       "lng": "-115.175472",
@@ -88,10 +88,10 @@
       "id": "00006",
       "name": "Planet Hollywood",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(866) 919-7472",
+      "address1": "3667 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.caesars.com/planet-hollywood",
 
       "lat": "36.109970",
       "lng": "-115.170065",
@@ -105,10 +105,10 @@
       "id": "00007",
       "name": "New York New York",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 740-6969",
+      "address1": "3790 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.newyorknewyork.com",
 
       "lat": "36.102371",
       "lng": "-115.174556",
@@ -122,10 +122,10 @@
       "id": "00008",
       "name": "Paris Las Vegas",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 946-7000",
+      "address1": "3655 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.caesars.com/paris-las-vegas",
 
       "lat": "36.112541",
       "lng": "-115.170671",
@@ -139,10 +139,10 @@
       "id": "00009",
       "name": "Monte Carlo",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 730-7000",
+      "address1": "3770 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.montecarlo.com",
 
       "lat": "36.104584",
       "lng": "-115.174465",
@@ -156,10 +156,10 @@
       "id": "00010",
       "name": "Bally's",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 967-4111",
+      "address1": "3645 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89119",
+      "webaddress": "https://www.caesars.com/ballys-las-vegas",
 
       "lat": "36.114061",
       "lng": "-115.170627",
@@ -173,10 +173,10 @@
       "id": "00011",
       "name": "Aria",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 590-7111",
+      "address1": "3730 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89158",
+      "webaddress": "https://www.aria.com",
 
       "lat": "36.107458",
       "lng": "-115.176716",
@@ -190,10 +190,10 @@
       "id": "00012",
       "name": "Flamingo",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 733-3111",
+      "address1": "3555 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.caesars.com/flamingo-las-vegas",
 
       "lat": "36.116441",
       "lng": "-115.170792",
@@ -207,10 +207,10 @@
       "id": "00013",
       "name": "The Cosmopolitan",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 698-7000",
+      "address1": "3708 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.cosmopolitanlasvegas.com",
 
       "lat": "36.109755",
       "lng": "-115.173877",
@@ -224,10 +224,10 @@
     "id": "00014",
     "name": "The Linq",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(800) 634-6441",
+      "address1": "3535 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.caesars.com/linq",
 
     "lat": "36.118154",
     "lng": "-115.172442",
@@ -241,10 +241,10 @@
       "id": "00015",
       "name": "Vdara",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 745-7767",
+      "address1": "2600 W. Harmon Ave.",
+      "address2": "Las Vegas, NV 89158",
+      "webaddress": "https://www.vdara.com",
 
       "lat": "36.109384",
       "lng": "-115.178132",
@@ -258,10 +258,10 @@
       "id": "00016",
       "name": "Harrah's",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(800) 214-9110",
+      "address1": "3475 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.caesars.com/harrahs-las-vegas",
 
       "lat": "36.119464",
       "lng": "-115.171639",
@@ -292,10 +292,10 @@
       "id": "00018",
       "name": "The Venetian",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 414-1000",
+      "address1": "3355 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.venetian.com",
 
       "lat": "36.121174",
       "lng": "-115.169653",
@@ -312,7 +312,7 @@
       "phone": "(866) 227-5938",
       "address1": "3570 S. Las Vegas Blvd.",
       "address2": "Las Vegas, NV 89109",
-      "webaddress": "https://www.caesars.com",
+      "webaddress": "https://www.caesars.com/caesars-palace",
 
       "lat": "36.116169",
       "lng": "-115.174499",
@@ -326,10 +326,10 @@
       "id": "00020",
       "name": "The Palazzo",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 607-7777",
+      "address1": "3325 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.palazzo.com",
 
       "lat": "36.123967",
       "lng": "-115.167916",
@@ -343,10 +343,10 @@
       "id": "00021",
       "name": "The Mirage",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 791-7111",
+      "address1": "3400 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.mirage.com",
 
       "lat": "36.121196",
       "lng": "-115.174074",
@@ -360,10 +360,10 @@
       "id": "00022",
       "name": "Wynn Las Vegas",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 770-7000",
+      "address1": "3131 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.wynnlasvegas.com",
 
       "lat": "36.126490",
       "lng": "-115.165739",
@@ -377,10 +377,10 @@
       "id": "00023",
       "name": "Treasure Island",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 894-7111",
+      "address1": "3300 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.treasureisland.com",
 
       "lat": "36.124745",
       "lng": "-115.172081",
@@ -394,10 +394,10 @@
       "id": "00024",
       "name": "Encore",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 770-7171",
+      "address1": "3131 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.wynnlasvegas.com",
 
       "lat": "36.129075",
       "lng": "-115.165290",
@@ -411,10 +411,10 @@
       "id": "00025",
       "name": "Circus Circus",
 
-      "phone": "(XXX) XXX-XXXX",
-      "address1": "XXXX S. Las Vegas Blvd.",
-      "address2": "Las Vegas, NV XXXXX",
-      "webaddress": "https://www.hotel.com",
+      "phone": "(702) 734-0410",
+      "address1": "2880 S. Las Vegas Blvd.",
+      "address2": "Las Vegas, NV 89109",
+      "webaddress": "https://www.circuscircus.com",
 
       "lat": "36.137772",
       "lng": "-115.165370",

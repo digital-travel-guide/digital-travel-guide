@@ -392,7 +392,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
                         */
                         View view = null;
                         hideSearch(view);
-                        Intent activityTest = new Intent(getApplicationContext(), InformationTesting.class);
+                        Intent activityTest = new Intent(getApplicationContext(), informationActivity.class);
                         activityTest.putExtra("locationName", curLoc.getName());
                         startActivity(activityTest);
                     }
