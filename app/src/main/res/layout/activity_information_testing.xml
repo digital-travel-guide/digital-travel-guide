@@ -75,18 +75,85 @@
         android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/hotelInfo"
+        android:id="@+id/hotelInfoAddress"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Hotel Information"
-        android:textAlignment="viewStart"
+        android:text="Hotel Address"
+        android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/mapBackground"
-        app:layout_constraintStart_toStartOf="@+id/mapBackground"
+        app:layout_constraintStart_toEndOf="@+id/labelAddress"
         app:layout_constraintTop_toBottomOf="@+id/spacer001" />
+
+    <TextView
+        android:id="@+id/hotelInfoPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Hotel Phone"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintEnd_toEndOf="@+id/mapBackground"
+        app:layout_constraintStart_toEndOf="@+id/labelPhone"
+        app:layout_constraintTop_toBottomOf="@+id/hotelInfoAddress" />
+
+    <TextView
+        android:id="@+id/hotelInfoWeb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Hotel Website"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelWeb"
+        app:layout_constraintTop_toBottomOf="@+id/hotelInfoPhone" />
+
+    <TextView
+        android:id="@+id/labelAddress"
+        android:layout_width="65dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Address"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toEndOf="@+id/hotelInfoAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spacer001" />
+
+    <TextView
+        android:id="@+id/labelPhone"
+        android:layout_width="65dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Phone"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toEndOf="@+id/hotelInfoPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelAddress" />
+
+    <TextView
+        android:id="@+id/labelWeb"
+        android:layout_width="65dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Web"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toEndOf="@+id/hotelInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelPhone" />
 
 </android.support.constraint.ConstraintLayout>
 
