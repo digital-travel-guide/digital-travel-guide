@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class InformationTesting extends AppCompatActivity {
 
     private String currentLocationNameTest;
-    private String phNumber, locationInformation, locInfo1, locInfo2;
+    private String phNumber, locationInformation, locInfo1, locInfo2, webAddress;
     locationInfo currLoc;
     //ADD MORE VARIABLES
 
@@ -31,9 +31,10 @@ public class InformationTesting extends AppCompatActivity {
             phNumber = currLoc.getPhone();
             locInfo1 = currLoc.getAddress1();
             locInfo2 = currLoc.getAddress2();
+            webAddress = currLoc.getWebaddress();
 
             // combine the variables into a string we can display
-            locationInformation = locInfo1+ " " + locInfo2 + "\n\n" + phNumber;
+            locationInformation = locInfo1+ "\n" + locInfo2;
 
         }
 
@@ -42,8 +43,16 @@ public class InformationTesting extends AppCompatActivity {
         LocationHotel.setText(currentLocationNameTest);
 
         // update location info textview
-        TextView LocationHotelInfo=(TextView)this.findViewById(R.id.hotelInfo);
-        LocationHotelInfo.setText(locationInformation);
+        TextView LocationHotelInfoAddress=(TextView)this.findViewById(R.id.hotelInfoAddress);
+        LocationHotelInfoAddress.setText(locationInformation);
+
+        // update location info textview
+        TextView LocationHotelInfoPhone=(TextView)this.findViewById(R.id.hotelInfoPhone);
+        LocationHotelInfoPhone.setText(phNumber);
+
+        // update location info textview
+        TextView LocationHotelInfoWeb=(TextView)this.findViewById(R.id.hotelInfoWeb);
+        LocationHotelInfoWeb.setText(webAddress);
 
     }
 
