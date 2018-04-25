@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="io.github.digital_travel_guide.digitaltravelguide.InformationTesting">
+
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/mapBackground"
@@ -20,7 +25,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/launch001testing" />
+        app:layout_constraintVertical_bias="0.35000002"
+        app:srcCompat="@drawable/launch001" />
 
     <ImageView
         android:id="@+id/toolbar"
@@ -31,6 +37,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/colorPrimaryDark" />
+
+    <!--
+    THIS IS CREATING ISSUES ON THE APP...
+    <ImageView
+        android:id="@+id/logoHolder"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/launch005"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+        -->
 
     <Button
         android:id="@+id/returntomap"
@@ -55,6 +73,7 @@
         android:text="Location Name"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold|italic"
         android:typeface="normal"
         android:visibility="visible"
@@ -63,16 +82,88 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ImageView
-        android:id="@+id/spacer001"
+        android:id="@+id/spacer002"
         android:layout_width="0dp"
+        android:layout_height="3dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/mapBackground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationName"
-        app:srcCompat="@color/colorPrimary"
-        android:layout_height="match_parent" />
+        app:srcCompat="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/LocationPhoto"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spacer002"
+        app:srcCompat="@drawable/locationplaceholder" />
+
+    <ImageView
+        android:id="@+id/spacerbeforebuttons"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LocationPhoto"
+        app:srcCompat="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/buttonWebsite"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spacerbeforebuttons"
+        app:srcCompat="@drawable/buttonswebsite" />
+
+    <ImageView
+        android:id="@+id/buttonDining"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWebsite"
+        app:srcCompat="@drawable/buttonsdining" />
+
+    <ImageView
+        android:id="@+id/buttonVenue"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDining"
+        app:srcCompat="@drawable/buttonsvenues" />
+
+    <ImageView
+        android:id="@+id/spacerbeforeinfo"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonVenue"
+        app:srcCompat="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/hotelInfoAddress"
@@ -86,7 +177,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/mapBackground"
         app:layout_constraintStart_toEndOf="@+id/labelAddress"
-        app:layout_constraintTop_toBottomOf="@+id/spacer001" />
+        app:layout_constraintTop_toBottomOf="@+id/spacerbeforeinfo" />
 
     <TextView
         android:id="@+id/hotelInfoPhone"
@@ -127,7 +218,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintStart_toEndOf="@+id/hotelInfoAddress"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spacer001" />
+        app:layout_constraintTop_toTopOf="@+id/spacerbeforeinfo" />
 
     <TextView
         android:id="@+id/labelPhone"
@@ -156,4 +247,6 @@
         app:layout_constraintTop_toBottomOf="@+id/labelPhone" />
 
 </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
 

@@ -522,6 +522,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         putMarker("Treasure Island");
         putMarker("Encore");
         putMarker("Circus Circus");
+        putMarker("Welcome to Las Vegas");
 
         //putMarker("Information Button");
     }

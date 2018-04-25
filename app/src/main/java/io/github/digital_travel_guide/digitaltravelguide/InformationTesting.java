@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+//import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -11,6 +12,7 @@ public class InformationTesting extends AppCompatActivity {
 
     private String currentLocationNameTest;
     private String phNumber, locationInformation, locInfo1, locInfo2, webAddress;
+    //private int locationID;
     locationInfo currLoc;
     //ADD MORE VARIABLES
 
@@ -32,6 +34,7 @@ public class InformationTesting extends AppCompatActivity {
             locInfo1 = currLoc.getAddress1();
             locInfo2 = currLoc.getAddress2();
             webAddress = currLoc.getWebaddress();
+            //locationID = currLoc.getId();
 
             // combine the variables into a string we can display
             locationInformation = locInfo1+ "\n" + locInfo2;
@@ -53,6 +56,23 @@ public class InformationTesting extends AppCompatActivity {
         // update location info textview
         TextView LocationHotelInfoWeb=(TextView)this.findViewById(R.id.hotelInfoWeb);
         LocationHotelInfoWeb.setText(webAddress);
+
+        /**
+        if(locationID=="00017") {
+            ImageView LocationImageBellagio=(ImageView)this.findViewById(R.id.LocationPhoto);
+            LocationImageBellagio.setImageDrawable(@drawable/locationbellagio);
+        }
+
+        if(locationID=="00019") {
+        ImageView LocationImageCaesars=(ImageView)this.findViewById(R.id.LocationPhoto);
+        LocationImageCaesars.setImageDrawable(@drawable/caesarspalace);
+        }
+
+        if(locationID=="00026") {
+            ImageView LocationImageVegasSign=(ImageView)this.findViewById(R.id.LocationPhoto);
+            LocationImageVegasSign.setImageDrawable(@drawable/locationvegassign);
+        }
+         */
 
     }
 

@@ -423,5 +423,24 @@
       "parkingLng": "-115.166092",
 
       "googleID": "ChIJmSto3AzEyIAR9CR5eHxI4BM"
-    }
+    },
+  {
+    "id": "00026",
+    "name": "Welcome to Las Vegas",
+
+    "phone": "(702) 892-0711",
+    "address1": "5200 S. Las Vegas Blvd.",
+    "address2": "Las Vegas, NV 89119",
+    "webaddress": "https://www.lasvegas.com",
+
+    "lat": "36.082056",
+    "lng": "-115.172778",
+
+    "parkingLat": "36.081170",
+    "parkingLng": "-115.172712",
+
+    "googleID": "0000000000"
+  }
+
+
 ]
