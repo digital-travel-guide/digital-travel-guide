@@ -629,14 +629,19 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             currentSW = currentBounds.southwest;
             currentNE = currentBounds.northeast;
 
-            if(camLocation.latitude <= currentNE.latitude && camLocation.latitude >= currentSW.latitude) {
-                if(camLocation.longitude <= currentNE.longitude && camLocation.longitude >= currentSW.longitude) {
-                    current_ground.setVisible(true);
-                }
-                else{
+
+            if(mMap.getCameraPosition().zoom >= 15 ) {
+                if (camLocation.latitude <= currentNE.latitude && camLocation.latitude >= currentSW.latitude) {
+                    if (camLocation.longitude <= currentNE.longitude && camLocation.longitude >= currentSW.longitude) {
+                        current_ground.setVisible(true);
+                    } else {
+                        current_ground.setVisible(false);
+                    }
+                } else {
                     current_ground.setVisible(false);
                 }
-            }else{
+            }
+            else{
                 current_ground.setVisible(false);
             }
         }
