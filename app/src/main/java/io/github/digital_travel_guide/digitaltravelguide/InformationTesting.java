@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 //import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class InformationTesting extends AppCompatActivity {
@@ -45,15 +47,15 @@ public class InformationTesting extends AppCompatActivity {
         TextView LocationHotel=(TextView)this.findViewById(R.id.locationName);
         LocationHotel.setText(currentLocationNameTest);
 
-        // update location info textview
+        // update hotel info textview
         TextView LocationHotelInfoAddress=(TextView)this.findViewById(R.id.hotelInfoAddress);
         LocationHotelInfoAddress.setText(locationInformation);
 
-        // update location info textview
+        // update phone info textview
         TextView LocationHotelInfoPhone=(TextView)this.findViewById(R.id.hotelInfoPhone);
         LocationHotelInfoPhone.setText(phNumber);
 
-        // update location info textview
+        // update web info textview
         TextView LocationHotelInfoWeb=(TextView)this.findViewById(R.id.hotelInfoWeb);
         LocationHotelInfoWeb.setText(webAddress);
 
@@ -73,6 +75,28 @@ public class InformationTesting extends AppCompatActivity {
             LocationImageVegasSign.setImageDrawable(@drawable/locationvegassign);
         }
          */
+
+    }
+
+
+    public void openWebsite(View view){
+        //Open in-app browser
+        int id = view.getId();
+
+        switch (id) {
+            case R.id.buttonWebsite:
+                Toast.makeText(getApplicationContext(), "Website Button clicked.", Toast.LENGTH_SHORT).show(); break;
+
+            case R.id.buttonVenue:
+                Toast.makeText(getApplicationContext(), "Venue Button clicked.", Toast.LENGTH_SHORT).show(); break;
+
+            case R.id.buttonDining:
+                Toast.makeText(getApplicationContext(), "Dining Button clicked.", Toast.LENGTH_SHORT).show(); break;
+
+            default:
+                Toast.makeText(getApplicationContext(), "Button clicked.", Toast.LENGTH_SHORT).show(); break;
+
+        }
 
     }
 
