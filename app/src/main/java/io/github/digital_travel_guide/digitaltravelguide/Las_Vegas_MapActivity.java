@@ -821,6 +821,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
     private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
         @Override
         public void onResult(@NonNull PlaceBuffer places) {
+            LatLng selectedLocation;
             if(!places.getStatus().isSuccess()) {
                 places.getStatus().toString();
                 places.release();
@@ -828,36 +829,43 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             }
             final Place place = places.get(0);
 
-            /*try{
-                mPlace = new PlaceInfo();
-                mPlace.setName(place.getName().toString());
-                mPlace.setAddress(place.getAddress().toString());
-                //mPlace.setAttriutions(place.getAttributions().toString());
-                mPlace.setId(place.getId());
-                mPlace.setLatlng(place.getLatLng());
-                mPlace.setRating(place.getRating());
-                mPlace.setPhoneNumber(place.getPhoneNumber().toString());
-                mPlace.setWesiteUri(place.getWebsiteUri());
+            selectedLocation = place.getLatLng();
+            if(selectedLocation.latitude < 35.96391231596752 || selectedLocation.latitude > 36.44179992718371 &&
+                    selectedLocation.longitude > -114.73434514331382 || selectedLocation.longitude < -115.83624217356936) {
+                Toast.makeText(getApplicationContext(), "Invalid Search. Location must be within the confines of Las Vegas", Toast.LENGTH_SHORT).show();
+                hideSoftKeyboard();
+            } else {
 
-                mPlace.toString();
-            }catch (NullPointerException e) {
-                e.getMessage();
+                /*try{
+                    mPlace = new PlaceInfo();
+                    mPlace.setName(place.getName().toString());
+                    mPlace.setAddress(place.getAddress().toString());
+                    //mPlace.setAttriutions(place.getAttributions().toString());
+                    mPlace.setId(place.getId());
+                    mPlace.setLatlng(place.getLatLng());
+                    mPlace.setRating(place.getRating());
+                    mPlace.setPhoneNumber(place.getPhoneNumber().toString());
+                    mPlace.setWesiteUri(place.getWebsiteUri());
+
+                    mPlace.toString();
+                }catch (NullPointerException e) {
+                    e.getMessage();
+                }
+
+                moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
+                */
+                locationInfo curloc = locationHandler.getClosestLocation(place.getLatLng());
+                Toast.makeText(getApplicationContext(), "Parking is based on nearest casino", Toast.LENGTH_LONG).show();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 17));      //curloc.getLatLng()
+                curloc.getMarker().showInfoWindow();
+                if (current_parking != null) {
+                    current_parking.remove();
+                    current_parking = null;
+                }
+                current_building = curloc.getMarker();
+                hideSoftKeyboard();
+                places.release();
             }
-
-            moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
-            */
-            locationInfo curloc = locationHandler.getClosestLocation(place.getLatLng());
-            Toast.makeText(getApplicationContext(), "Parking is based on nearest casino", Toast.LENGTH_LONG).show();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(),17));      //curloc.getLatLng()
-            curloc.getMarker().showInfoWindow();
-            if (current_parking != null) {
-                current_parking.remove();
-                current_parking = null;
-            }
-            current_building =  curloc.getMarker();
-            hideSoftKeyboard();
-            places.release();
-
 
         }
     };
