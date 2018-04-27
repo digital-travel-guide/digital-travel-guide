@@ -10,6 +10,7 @@
     //
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".Globals"
@@ -45,7 +46,8 @@
             android:name=".Las_Vegas_MapActivity"
             android:label="VegasGo" />
         <activity android:name=".informationActivity" />
-        <activity android:name=".InformationTesting"></activity>
+        <activity android:name=".InformationTesting" />
+        <activity android:name=".websiteActivity"></activity>
     </application>
 
 </manifest>

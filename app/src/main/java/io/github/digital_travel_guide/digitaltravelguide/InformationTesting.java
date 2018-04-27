@@ -85,13 +85,19 @@ public class InformationTesting extends AppCompatActivity {
 
         switch (id) {
             case R.id.buttonWebsite:
-                Toast.makeText(getApplicationContext(), "Website Button clicked.", Toast.LENGTH_SHORT).show(); break;
+                Toast.makeText(getApplicationContext(), "Website Button clicked.", Toast.LENGTH_SHORT).show();
+                startBrowser(webAddress);
+                break;
 
             case R.id.buttonVenue:
-                Toast.makeText(getApplicationContext(), "Venue Button clicked.", Toast.LENGTH_SHORT).show(); break;
+                Toast.makeText(getApplicationContext(), "Venue Button clicked.", Toast.LENGTH_SHORT).show();
+                startBrowser(webAddress);
+                break;
 
             case R.id.buttonDining:
-                Toast.makeText(getApplicationContext(), "Dining Button clicked.", Toast.LENGTH_SHORT).show(); break;
+                Toast.makeText(getApplicationContext(), "Dining Button clicked.", Toast.LENGTH_SHORT).show();
+                startBrowser(webAddress);
+                break;
 
             default:
                 Toast.makeText(getApplicationContext(), "Button clicked.", Toast.LENGTH_SHORT).show(); break;
@@ -100,6 +106,11 @@ public class InformationTesting extends AppCompatActivity {
 
     }
 
+    private void startBrowser(String website){
+        Intent activityTest = new Intent(getApplicationContext(), websiteActivity.class);
+        activityTest.putExtra("websiteName", website);
+        startActivity(activityTest);
+    }
 
 
 
