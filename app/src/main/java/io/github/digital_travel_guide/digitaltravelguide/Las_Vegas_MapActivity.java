@@ -217,6 +217,12 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             public void onClick(View view) {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
+                /*
+                builder.setLatLngBounds(new LatLngBounds(
+                        new LatLng(36.063977, -115.216821),         //SW point
+                        new LatLng(36.180729, -115.088419)));       //NE point
+                */
+
                 try {
                     startActivityForResult(builder.build(Las_Vegas_MapActivity.this), PLACE_PICKER_REQUEST);
                 } catch (GooglePlayServicesRepairableException e) {
@@ -841,8 +847,8 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
             moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
             */
             locationInfo curloc = locationHandler.getClosestLocation(place.getLatLng());
-            Toast.makeText(getApplicationContext(), "Going to nearest casino based on search", Toast.LENGTH_LONG).show();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curloc.getLatLng(),17));
+            Toast.makeText(getApplicationContext(), "Parking is based on nearest casino", Toast.LENGTH_LONG).show();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(),17));      //curloc.getLatLng()
             curloc.getMarker().showInfoWindow();
             if (current_parking != null) {
                 current_parking.remove();
