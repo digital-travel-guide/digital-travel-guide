@@ -22,6 +22,7 @@ public class websiteActivity extends AppCompatActivity {
 
         WebView myWebView = (WebView) findViewById(R.id.webview);
         myWebView.loadUrl(website);
+        finish();
     }
 
     public void returnToInformationView(View v)
