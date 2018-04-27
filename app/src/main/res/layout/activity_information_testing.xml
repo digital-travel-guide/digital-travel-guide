@@ -11,27 +11,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/mapBackground"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="false"
-        android:contextClickable="false"
-        android:paddingHorizontal="75dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35000002"
-        app:srcCompat="@drawable/launch001" />
+
 
     <ImageView
         android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
         app:layout_constraintBottom_toTopOf="@+id/mapBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
