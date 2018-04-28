@@ -72,6 +72,7 @@ public class locationHandler {
         return null;
     }
 
+
     public static locationInfo getClosestLocation(LatLng place) {
         //iterate through each location
         locationInfo curLoc = locationInfoArr.get(0);
