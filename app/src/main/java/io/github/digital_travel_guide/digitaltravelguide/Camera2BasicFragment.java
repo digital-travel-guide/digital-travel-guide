@@ -319,7 +319,7 @@ public class Camera2BasicFragment extends Fragment
           //((Activity) getActivity()).overridePendingTransition(0,0);
         } else if (mCaesarsPalace && !mBellagio) {
           Intent intent = new Intent(getActivity(), InformationTesting.class);
-          intent.putExtra("locationName", "Caesars Palace");
+          intent.putExtra("locationName", "Caesar's Palace");
           startActivity(intent);
           //((Activity) getActivity()).overridePendingTransition(0,0);
         } else {
