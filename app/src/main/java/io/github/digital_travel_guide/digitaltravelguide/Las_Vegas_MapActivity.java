@@ -15,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -157,6 +158,15 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
 
         cancel_button = (Button) findViewById(R.id.cancel_button);
         cancel_button.setVisibility(View.GONE);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.cameraActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);

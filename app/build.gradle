@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
+
+assert file(project.ext.ASSET_DIR + "/graph.lite").exists()
+assert file(project.ext.ASSET_DIR + "/labels.txt").exists()
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -10,11 +15,24 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    lintOptions {
+        abortOnError false
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
+}
+
+repositories {
+    maven {
+        url 'https://google.bintray.com/tensorflow'
     }
 }
 
@@ -30,4 +48,13 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.google.android.gms:play-services-places:11.8.0'
+
+    compile 'org.tensorflow:tensorflow-lite:+'
+    compile 'com.android.support:support-v13:+'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-v4:26.1.0'
+    }
 }
