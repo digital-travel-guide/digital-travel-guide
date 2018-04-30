@@ -316,12 +316,12 @@ public class Camera2BasicFragment extends Fragment
           Intent intent = new Intent(getActivity(), InformationTesting.class);
           intent.putExtra("locationName", "Bellagio");
           startActivity(intent);
-          ((Activity) getActivity()).overridePendingTransition(0,0);
+          //((Activity) getActivity()).overridePendingTransition(0,0);
         } else if (mCaesarsPalace && !mBellagio) {
           Intent intent = new Intent(getActivity(), InformationTesting.class);
           intent.putExtra("locationName", "Caesars Palace");
           startActivity(intent);
-          ((Activity) getActivity()).overridePendingTransition(0,0);
+          //((Activity) getActivity()).overridePendingTransition(0,0);
         } else {
           Toast.makeText(getActivity(), "Location not recognized", Toast.LENGTH_SHORT).show();
         }
