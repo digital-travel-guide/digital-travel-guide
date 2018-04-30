@@ -57,7 +57,7 @@
         <activity android:name=".informationActivity" />
         <activity android:name=".InformationTesting" />
         <activity android:name=".websiteActivity"></activity>
-        <activity android:name=".CameraActivity" />
+        <activity android:name=".CameraActivity" android:noHistory="true" />
     </application>
 
 </manifest>
