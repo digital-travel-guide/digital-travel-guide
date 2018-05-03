@@ -539,6 +539,7 @@ public class Las_Vegas_MapActivity extends AppCompatActivity  implements GoogleM
         putMarker("Encore");
         putMarker("Circus Circus");
         putMarker("Welcome to Las Vegas");
+        putMarker("UNLV Thomas and Mack Center");
 
         //putMarker("Information Button");
     }

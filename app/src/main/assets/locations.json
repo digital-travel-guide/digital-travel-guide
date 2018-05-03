@@ -440,6 +440,24 @@
     "parkingLng": "-115.172712",
 
     "googleID": "0000000000"
+  },
+
+  {
+    "id": "00027",
+    "name": "UNLV Thomas and Mack Center",
+
+    "phone": "(702) 895-3761",
+    "address1": "4505 S. Maryland Pkwy.",
+    "address2": "Las Vegas, NV 89154",
+    "webaddress": "http://www.thomasandmack.com/",
+
+    "lat": "36.104900",
+    "lng": "-115.144200",
+
+    "parkingLat": "36.104930",
+    "parkingLng": "-115.146882",
+
+    "googleID": "0000000001"
   }
 
 

@@ -124,6 +124,9 @@ public class InformationTesting extends AppCompatActivity {
                 case 26 :
                     Image.setImageDrawable(getDrawable(R.drawable.locationvegassign));
                     break;
+                case 27 :
+                    Image.setImageDrawable(getDrawable(R.drawable.locationthomasandmack));
+                    break;
                 default:
                     Image.setImageDrawable(getDrawable(R.drawable.locationplaceholder));
                     break;
